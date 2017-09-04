@@ -1,0 +1,327 @@
+\hypertarget{namespacemeyer_1_1program}{}\section{meyer.\+program Namespace Reference}
+\label{namespacemeyer_1_1program}\index{meyer.\+program@{meyer.\+program}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1program_a2229fec0fdbcba6e277f26f537088c21}{prog\+\_\+constraint} (\hyperlink{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}{prog})
+\begin{DoxyCompactList}\small\item\em Use prog/progs \+\_\+constraint to Prog constants. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_aa1b9b5b66171bc75ca42d795003ada41}{progs\+\_\+constraint} (\hyperlink{namespacemeyer_1_1program_ae0fe8928ca6b44bea0484d83cb8b98dc}{progs})
+\begin{DoxyCompactList}\small\item\em Maps the constraints of progs to the progs. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}{prog} (solver, name)
+\begin{DoxyCompactList}\small\item\em Creates a new program, adding the constraints to the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_ae0fe8928ca6b44bea0484d83cb8b98dc}{progs} (solver, names)
+\begin{DoxyCompactList}\small\item\em Creates multiple new programs, adding the constraints to the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a98fde47f6e0b55f0a853504c52f42695}{show\+\_\+prog} (solver, \hyperlink{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}{prog})
+\begin{DoxyCompactList}\small\item\em Prints a program. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a4dd6b1d1b136379bcee2fa37a407eff9}{show\+\_\+set} (solver, set)
+\begin{DoxyCompactList}\small\item\em Prints a set. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a48c262752e496209621f5c6e0da3f8ad}{universe\+\_\+state} ()
+\begin{DoxyCompactList}\small\item\em Returns a string which contains informations about the universe used. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a1f3d5951c7b4c6aad277761ba776724b}{proof} (solver, title, reset=True)
+\begin{DoxyCompactList}\small\item\em Starts the proof of a theorem thanks to its solver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacemeyer_1_1program_a5439166d754be3dc1dd22114889f26f2}{A}
+\item 
+\hyperlink{namespacemeyer_1_1program_ac206af55b2b0d02e01c488d77a0830e7}{B}
+\item 
+\hyperlink{namespacemeyer_1_1program_afa493796575f275536829e18ce904c1d}{C}
+\item 
+\hyperlink{namespacemeyer_1_1program_ac9c465b4f9426d61a87d653e9f26dc36}{Set} = Array\+Sort(U, Bool\+Sort())
+\item 
+\hyperlink{namespacemeyer_1_1program_a18582ffc9743be82070d174cf1dd0def}{Pre} = Array\+Sort(U, Bool\+Sort())
+\item 
+\hyperlink{namespacemeyer_1_1program_a18877460818246ee839f29d7e6dc5eed}{Post} = Array\+Sort(U, Array\+Sort(U, Bool\+Sort()))
+\item 
+\hyperlink{namespacemeyer_1_1program_a314c908a305b7a9bf8e7bc6b9cde2e02}{Prog} = Datatype(\textquotesingle{}Prog\textquotesingle{})
+\item 
+\hyperlink{namespacemeyer_1_1program_aa5506eff84f20ed482dae9ad8b143b22}{set\+\_\+} = Prog.\+set
+\item 
+\hyperlink{namespacemeyer_1_1program_a6f2f5087d48ccd14f64219bc08379388}{pre\+\_\+} = Prog.\+pre
+\item 
+\hyperlink{namespacemeyer_1_1program_a3222d9981c3064528ea694bbadf9c67a}{post\+\_\+} = Prog.\+post
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}\label{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}} 
+\index{meyer\+::program@{meyer\+::program}!prog@{prog}}
+\index{prog@{prog}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{prog()}{prog()}}
+{\footnotesize\ttfamily def meyer.\+program.\+prog (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a new program, adding the constraints to the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the programwill be added. \\
+\hline
+{\em name} & The name of the created program. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program created. 
+\end{DoxyReturn}
+
+
+Definition at line 55 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a2229fec0fdbcba6e277f26f537088c21}\label{namespacemeyer_1_1program_a2229fec0fdbcba6e277f26f537088c21}} 
+\index{meyer\+::program@{meyer\+::program}!prog\+\_\+constraint@{prog\+\_\+constraint}}
+\index{prog\+\_\+constraint@{prog\+\_\+constraint}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{prog\+\_\+constraint()}{prog\_constraint()}}
+{\footnotesize\ttfamily def meyer.\+program.\+prog\+\_\+constraint (\begin{DoxyParamCaption}\item[{}]{prog }\end{DoxyParamCaption})}
+
+
+
+Use prog/progs \+\_\+constraint to Prog constants. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prog} & The prog that needs constraints. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The constraints linked to a program. 
+\end{DoxyReturn}
+
+
+Definition at line 34 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_ae0fe8928ca6b44bea0484d83cb8b98dc}\label{namespacemeyer_1_1program_ae0fe8928ca6b44bea0484d83cb8b98dc}} 
+\index{meyer\+::program@{meyer\+::program}!progs@{progs}}
+\index{progs@{progs}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{progs()}{progs()}}
+{\footnotesize\ttfamily def meyer.\+program.\+progs (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{names }\end{DoxyParamCaption})}
+
+
+
+Creates multiple new programs, adding the constraints to the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program will be added. \\
+\hline
+{\em names} & The names of the created programs, separated by space character. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The map of the programs created. 
+\end{DoxyReturn}
+
+
+Definition at line 64 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_aa1b9b5b66171bc75ca42d795003ada41}\label{namespacemeyer_1_1program_aa1b9b5b66171bc75ca42d795003ada41}} 
+\index{meyer\+::program@{meyer\+::program}!progs\+\_\+constraint@{progs\+\_\+constraint}}
+\index{progs\+\_\+constraint@{progs\+\_\+constraint}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{progs\+\_\+constraint()}{progs\_constraint()}}
+{\footnotesize\ttfamily def meyer.\+program.\+progs\+\_\+constraint (\begin{DoxyParamCaption}\item[{}]{progs }\end{DoxyParamCaption})}
+
+
+
+Maps the constraints of progs to the progs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em progs} & A list of progs that is used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Z3 And condition that maps constraints and progs. 
+\end{DoxyReturn}
+
+
+Definition at line 47 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a1f3d5951c7b4c6aad277761ba776724b}\label{namespacemeyer_1_1program_a1f3d5951c7b4c6aad277761ba776724b}} 
+\index{meyer\+::program@{meyer\+::program}!proof@{proof}}
+\index{proof@{proof}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{proof()}{proof()}}
+{\footnotesize\ttfamily def meyer.\+program.\+proof (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{title,  }\item[{}]{reset = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+Starts the proof of a theorem thanks to its solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver which contains all the assuptions. \\
+\hline
+{\em title} & The title of the theorem. \\
+\hline
+{\em reset} & Boolean that indicates if the solver will be reset after the proof, true is reset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result (sat, unsat or unknown) of the proof. 
+\end{DoxyReturn}
+
+
+Definition at line 97 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a98fde47f6e0b55f0a853504c52f42695}\label{namespacemeyer_1_1program_a98fde47f6e0b55f0a853504c52f42695}} 
+\index{meyer\+::program@{meyer\+::program}!show\+\_\+prog@{show\+\_\+prog}}
+\index{show\+\_\+prog@{show\+\_\+prog}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{show\+\_\+prog()}{show\_prog()}}
+{\footnotesize\ttfamily def meyer.\+program.\+show\+\_\+prog (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{prog }\end{DoxyParamCaption})}
+
+
+
+Prints a program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program is. \\
+\hline
+{\em prog} & The program that needs to be printed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 72 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a4dd6b1d1b136379bcee2fa37a407eff9}\label{namespacemeyer_1_1program_a4dd6b1d1b136379bcee2fa37a407eff9}} 
+\index{meyer\+::program@{meyer\+::program}!show\+\_\+set@{show\+\_\+set}}
+\index{show\+\_\+set@{show\+\_\+set}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{show\+\_\+set()}{show\_set()}}
+{\footnotesize\ttfamily def meyer.\+program.\+show\+\_\+set (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{set }\end{DoxyParamCaption})}
+
+
+
+Prints a set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the set is. \\
+\hline
+{\em set} & The set that need to be printed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 80 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a48c262752e496209621f5c6e0da3f8ad}\label{namespacemeyer_1_1program_a48c262752e496209621f5c6e0da3f8ad}} 
+\index{meyer\+::program@{meyer\+::program}!universe\+\_\+state@{universe\+\_\+state}}
+\index{universe\+\_\+state@{universe\+\_\+state}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{universe\+\_\+state()}{universe\_state()}}
+{\footnotesize\ttfamily def meyer.\+program.\+universe\+\_\+state (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns a string which contains informations about the universe used. 
+
+\begin{DoxyReturn}{Returns}
+The string which contains the universe. 
+\end{DoxyReturn}
+
+
+Definition at line 86 of file program.\+py.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacemeyer_1_1program_a5439166d754be3dc1dd22114889f26f2}\label{namespacemeyer_1_1program_a5439166d754be3dc1dd22114889f26f2}} 
+\index{meyer\+::program@{meyer\+::program}!A@{A}}
+\index{A@{A}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{A}{A}}
+{\footnotesize\ttfamily meyer.\+program.\+A}
+
+
+
+Definition at line 14 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_ac206af55b2b0d02e01c488d77a0830e7}\label{namespacemeyer_1_1program_ac206af55b2b0d02e01c488d77a0830e7}} 
+\index{meyer\+::program@{meyer\+::program}!B@{B}}
+\index{B@{B}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{B}{B}}
+{\footnotesize\ttfamily meyer.\+program.\+B}
+
+
+
+Definition at line 14 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_afa493796575f275536829e18ce904c1d}\label{namespacemeyer_1_1program_afa493796575f275536829e18ce904c1d}} 
+\index{meyer\+::program@{meyer\+::program}!C@{C}}
+\index{C@{C}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{C}{C}}
+{\footnotesize\ttfamily meyer.\+program.\+C}
+
+
+
+Definition at line 14 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a18877460818246ee839f29d7e6dc5eed}\label{namespacemeyer_1_1program_a18877460818246ee839f29d7e6dc5eed}} 
+\index{meyer\+::program@{meyer\+::program}!Post@{Post}}
+\index{Post@{Post}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{Post}{Post}}
+{\footnotesize\ttfamily meyer.\+program.\+Post = Array\+Sort(U, Array\+Sort(U, Bool\+Sort()))}
+
+
+
+Definition at line 22 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a3222d9981c3064528ea694bbadf9c67a}\label{namespacemeyer_1_1program_a3222d9981c3064528ea694bbadf9c67a}} 
+\index{meyer\+::program@{meyer\+::program}!post\+\_\+@{post\+\_\+}}
+\index{post\+\_\+@{post\+\_\+}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{post\+\_\+}{post\_}}
+{\footnotesize\ttfamily meyer.\+program.\+post\+\_\+ = Prog.\+post}
+
+
+
+Definition at line 29 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a18582ffc9743be82070d174cf1dd0def}\label{namespacemeyer_1_1program_a18582ffc9743be82070d174cf1dd0def}} 
+\index{meyer\+::program@{meyer\+::program}!Pre@{Pre}}
+\index{Pre@{Pre}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{Pre}{Pre}}
+{\footnotesize\ttfamily meyer.\+program.\+Pre = Array\+Sort(U, Bool\+Sort())}
+
+
+
+Definition at line 21 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a6f2f5087d48ccd14f64219bc08379388}\label{namespacemeyer_1_1program_a6f2f5087d48ccd14f64219bc08379388}} 
+\index{meyer\+::program@{meyer\+::program}!pre\+\_\+@{pre\+\_\+}}
+\index{pre\+\_\+@{pre\+\_\+}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{pre\+\_\+}{pre\_}}
+{\footnotesize\ttfamily meyer.\+program.\+pre\+\_\+ = Prog.\+pre}
+
+
+
+Definition at line 28 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_a314c908a305b7a9bf8e7bc6b9cde2e02}\label{namespacemeyer_1_1program_a314c908a305b7a9bf8e7bc6b9cde2e02}} 
+\index{meyer\+::program@{meyer\+::program}!Prog@{Prog}}
+\index{Prog@{Prog}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{Prog}{Prog}}
+{\footnotesize\ttfamily meyer.\+program.\+Prog = Datatype(\textquotesingle{}Prog\textquotesingle{})}
+
+
+
+Definition at line 24 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_ac9c465b4f9426d61a87d653e9f26dc36}\label{namespacemeyer_1_1program_ac9c465b4f9426d61a87d653e9f26dc36}} 
+\index{meyer\+::program@{meyer\+::program}!Set@{Set}}
+\index{Set@{Set}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{Set}{Set}}
+{\footnotesize\ttfamily meyer.\+program.\+Set = Array\+Sort(U, Bool\+Sort())}
+
+
+
+Definition at line 19 of file program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1program_aa5506eff84f20ed482dae9ad8b143b22}\label{namespacemeyer_1_1program_aa5506eff84f20ed482dae9ad8b143b22}} 
+\index{meyer\+::program@{meyer\+::program}!set\+\_\+@{set\+\_\+}}
+\index{set\+\_\+@{set\+\_\+}!meyer\+::program@{meyer\+::program}}
+\subsubsection{\texorpdfstring{set\+\_\+}{set\_}}
+{\footnotesize\ttfamily meyer.\+program.\+set\+\_\+ = Prog.\+set}
+
+
+
+Definition at line 27 of file program.\+py.
+

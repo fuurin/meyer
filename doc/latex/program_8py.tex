@@ -1,0 +1,60 @@
+\hypertarget{program_8py}{}\section{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/program.py File Reference}
+\label{program_8py}\index{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/program.\+py@{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/program.\+py}}
+
+
+This module can be used to define and create programs according to meyer\textquotesingle{}s definition.  
+
+
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacemeyer_1_1program}{meyer.\+program}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1program_a2229fec0fdbcba6e277f26f537088c21}{meyer.\+program.\+prog\+\_\+constraint} (prog)
+\begin{DoxyCompactList}\small\item\em Use prog/progs \+\_\+constraint to Prog constants. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_aa1b9b5b66171bc75ca42d795003ada41}{meyer.\+program.\+progs\+\_\+constraint} (progs)
+\begin{DoxyCompactList}\small\item\em Maps the constraints of progs to the progs. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a2ec2977de2aefb152624161860abed00}{meyer.\+program.\+prog} (solver, name)
+\begin{DoxyCompactList}\small\item\em Creates a new program, adding the constraints to the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_ae0fe8928ca6b44bea0484d83cb8b98dc}{meyer.\+program.\+progs} (solver, names)
+\begin{DoxyCompactList}\small\item\em Creates multiple new programs, adding the constraints to the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a98fde47f6e0b55f0a853504c52f42695}{meyer.\+program.\+show\+\_\+prog} (solver, prog)
+\begin{DoxyCompactList}\small\item\em Prints a program. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a4dd6b1d1b136379bcee2fa37a407eff9}{meyer.\+program.\+show\+\_\+set} (solver, set)
+\begin{DoxyCompactList}\small\item\em Prints a set. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a48c262752e496209621f5c6e0da3f8ad}{meyer.\+program.\+universe\+\_\+state} ()
+\begin{DoxyCompactList}\small\item\em Returns a string which contains informations about the universe used. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1program_a1f3d5951c7b4c6aad277761ba776724b}{meyer.\+program.\+proof} (solver, title, reset=True)
+\begin{DoxyCompactList}\small\item\em Starts the proof of a theorem thanks to its solver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacemeyer_1_1program_a5439166d754be3dc1dd22114889f26f2}{meyer.\+program.\+A}
+\item 
+\hyperlink{namespacemeyer_1_1program_ac206af55b2b0d02e01c488d77a0830e7}{meyer.\+program.\+B}
+\item 
+\hyperlink{namespacemeyer_1_1program_afa493796575f275536829e18ce904c1d}{meyer.\+program.\+C}
+\item 
+\hyperlink{namespacemeyer_1_1program_ac9c465b4f9426d61a87d653e9f26dc36}{meyer.\+program.\+Set} = Array\+Sort(U, Bool\+Sort())
+\item 
+\hyperlink{namespacemeyer_1_1program_a18582ffc9743be82070d174cf1dd0def}{meyer.\+program.\+Pre} = Array\+Sort(U, Bool\+Sort())
+\item 
+\hyperlink{namespacemeyer_1_1program_a18877460818246ee839f29d7e6dc5eed}{meyer.\+program.\+Post} = Array\+Sort(U, Array\+Sort(U, Bool\+Sort()))
+\item 
+\hyperlink{namespacemeyer_1_1program_a314c908a305b7a9bf8e7bc6b9cde2e02}{meyer.\+program.\+Prog} = Datatype(\textquotesingle{}Prog\textquotesingle{})
+\item 
+\hyperlink{namespacemeyer_1_1program_aa5506eff84f20ed482dae9ad8b143b22}{meyer.\+program.\+set\+\_\+} = Prog.\+set
+\item 
+\hyperlink{namespacemeyer_1_1program_a6f2f5087d48ccd14f64219bc08379388}{meyer.\+program.\+pre\+\_\+} = Prog.\+pre
+\item 
+\hyperlink{namespacemeyer_1_1program_a3222d9981c3064528ea694bbadf9c67a}{meyer.\+program.\+post\+\_\+} = Prog.\+post
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This module can be used to define and create programs according to meyer\textquotesingle{}s definition. 
+
+It defines the new Datatype called Prog, that is composed of a set, a precondition and a postcondition, and operations that can be useful when working with those programs. 

@@ -1,0 +1,337 @@
+\hypertarget{namespacemeyer_1_1util_1_1z3py__util}{}\section{meyer.\+util.\+z3py\+\_\+util Namespace Reference}
+\label{namespacemeyer_1_1util_1_1z3py__util}\index{meyer.\+util.\+z3py\+\_\+util@{meyer.\+util.\+z3py\+\_\+util}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_ab669d0e9517ca9e314995cacdb9d451c}{id\+\_\+name} (name)
+\begin{DoxyCompactList}\small\item\em Concatenates the name of the element with its ID, and return the string result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8747354710be05db88bc9188dfa16b30}{id\+\_\+names} (names)
+\begin{DoxyCompactList}\small\item\em Concatenates the names of the elements with their I\+Ds, and return the string result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a09fd9b270cf6714742578ca63a5cbb42}{const} (name, sort)
+\begin{DoxyCompactList}\small\item\em Creates a new const element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8565362aa72ebb1f4f22eb0950d08609}{consts} (names, sort)
+\begin{DoxyCompactList}\small\item\em Creates multiple new consts elements of the same type. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a347859270b8ef0d7bb63d7840aa5f4aa}{function} (name, sort)
+\begin{DoxyCompactList}\small\item\em Creates a function element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a6cf5a3dfdff69d332f989d1b8f73119b}{functions} (names, sort)
+\begin{DoxyCompactList}\small\item\em Creates multiple functions elements. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8512b24ebe7ccd137b53ba52407415fb}{model} (solver, instance)
+\begin{DoxyCompactList}\small\item\em Returns the model of a solver after checking whether its result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_ad469c85dd6ea1c5d3641446ea0246166}{evaluate} (solver, \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a347859270b8ef0d7bb63d7840aa5f4aa}{function})
+\begin{DoxyCompactList}\small\item\em Evaluates the content of an element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a88b1476f6b8d614eb1907a94d711f40d}{as\+\_\+list} (solver, as\+\_\+array)
+\begin{DoxyCompactList}\small\item\em Returns the list corresponding to an array of an element of the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a4eea2be8cfebc20260a595ef0152781c}{unveil} (solver, item, phase=0)
+\begin{DoxyCompactList}\small\item\em Recursive function that prints the elements of an element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a94d6ccd0151825f3405c1ebccf8532b9}{show\+\_\+record\+\_\+element} (solver, record, element)
+\begin{DoxyCompactList}\small\item\em Prints the name of an element and call unveil to print its content. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a95c84051003c44372826c0350d2d4042}{show\+\_\+set\+\_\+element} (solver, record)
+\begin{DoxyCompactList}\small\item\em Prints the name of a set and its content. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a6d3bdd5583300633c2b4562123a3e876}{proof} (solver, title, reset=True)
+\begin{DoxyCompactList}\small\item\em Checks if a solver instance is sat, unsat or unknown, returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a88b1476f6b8d614eb1907a94d711f40d}\label{namespacemeyer_1_1util_1_1z3py__util_a88b1476f6b8d614eb1907a94d711f40d}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!as\+\_\+list@{as\+\_\+list}}
+\index{as\+\_\+list@{as\+\_\+list}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{as\+\_\+list()}{as\_list()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+as\+\_\+list (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{as\+\_\+array }\end{DoxyParamCaption})}
+
+
+
+Returns the list corresponding to an array of an element of the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The currently used solver. \\
+\hline
+{\em as\+\_\+array} & The array that needs to be converted in a list. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The list that corresponds to the array passed as parameter. 
+\end{DoxyReturn}
+
+
+Definition at line 85 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a09fd9b270cf6714742578ca63a5cbb42}\label{namespacemeyer_1_1util_1_1z3py__util_a09fd9b270cf6714742578ca63a5cbb42}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!const@{const}}
+\index{const@{const}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{const()}{const()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+const (\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{sort }\end{DoxyParamCaption})}
+
+
+
+Creates a new const element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the const element. \\
+\hline
+{\em sort} & Type of the const element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new const element. 
+\end{DoxyReturn}
+
+
+Definition at line 42 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a8565362aa72ebb1f4f22eb0950d08609}\label{namespacemeyer_1_1util_1_1z3py__util_a8565362aa72ebb1f4f22eb0950d08609}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!consts@{consts}}
+\index{consts@{consts}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{consts()}{consts()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+consts (\begin{DoxyParamCaption}\item[{}]{names,  }\item[{}]{sort }\end{DoxyParamCaption})}
+
+
+
+Creates multiple new consts elements of the same type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em names} & Names of the const elements, separated by space character. \\
+\hline
+{\em sort} & Type of the const elements (all consts must have the same type when using this function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New const elements. 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_ad469c85dd6ea1c5d3641446ea0246166}\label{namespacemeyer_1_1util_1_1z3py__util_ad469c85dd6ea1c5d3641446ea0246166}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+evaluate (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{function }\end{DoxyParamCaption})}
+
+
+
+Evaluates the content of an element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The currently used solver. \\
+\hline
+{\em function} & The function that needs to be evaluated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The evaluated function, in general it will return the value of the booleans in the function. 
+\end{DoxyReturn}
+
+
+Definition at line 78 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a347859270b8ef0d7bb63d7840aa5f4aa}\label{namespacemeyer_1_1util_1_1z3py__util_a347859270b8ef0d7bb63d7840aa5f4aa}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!function@{function}}
+\index{function@{function}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{function()}{function()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+function (\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{sort }\end{DoxyParamCaption})}
+
+
+
+Creates a function element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the function element. \\
+\hline
+{\em sort} & Type of the function element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new function element. 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a6cf5a3dfdff69d332f989d1b8f73119b}\label{namespacemeyer_1_1util_1_1z3py__util_a6cf5a3dfdff69d332f989d1b8f73119b}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!functions@{functions}}
+\index{functions@{functions}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{functions()}{functions()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+functions (\begin{DoxyParamCaption}\item[{}]{names,  }\item[{}]{sort }\end{DoxyParamCaption})}
+
+
+
+Creates multiple functions elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em names} & Names of the function elements, separated by space character. \\
+\hline
+{\em sort} & Type of the function elements (all functions must have the same type when using this function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New function elements. 
+\end{DoxyReturn}
+
+
+Definition at line 63 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_ab669d0e9517ca9e314995cacdb9d451c}\label{namespacemeyer_1_1util_1_1z3py__util_ab669d0e9517ca9e314995cacdb9d451c}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!id\+\_\+name@{id\+\_\+name}}
+\index{id\+\_\+name@{id\+\_\+name}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{id\+\_\+name()}{id\_name()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+id\+\_\+name (\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
+
+
+
+Concatenates the name of the element with its ID, and return the string result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The name concatenated with the current ID value. 
+\end{DoxyReturn}
+
+
+Definition at line 23 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a8747354710be05db88bc9188dfa16b30}\label{namespacemeyer_1_1util_1_1z3py__util_a8747354710be05db88bc9188dfa16b30}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!id\+\_\+names@{id\+\_\+names}}
+\index{id\+\_\+names@{id\+\_\+names}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{id\+\_\+names()}{id\_names()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+id\+\_\+names (\begin{DoxyParamCaption}\item[{}]{names }\end{DoxyParamCaption})}
+
+
+
+Concatenates the names of the elements with their I\+Ds, and return the string result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em names} & Names of the element separated by space character. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The concatenated names of the element with the ID, all separated by space character. 
+\end{DoxyReturn}
+
+
+Definition at line 31 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a8512b24ebe7ccd137b53ba52407415fb}\label{namespacemeyer_1_1util_1_1z3py__util_a8512b24ebe7ccd137b53ba52407415fb}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!model@{model}}
+\index{model@{model}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{model()}{model()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+model (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{instance }\end{DoxyParamCaption})}
+
+
+
+Returns the model of a solver after checking whether its result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The currently used solver. \\
+\hline
+{\em instance} & The instance that is needed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The model of the instance in the solver. 
+\end{DoxyReturn}
+
+
+Definition at line 71 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a6d3bdd5583300633c2b4562123a3e876}\label{namespacemeyer_1_1util_1_1z3py__util_a6d3bdd5583300633c2b4562123a3e876}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!proof@{proof}}
+\index{proof@{proof}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{proof()}{proof()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+proof (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{title,  }\item[{}]{reset = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+Checks if a solver instance is sat, unsat or unknown, returns the result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver that is used to make the proof. \\
+\hline
+{\em title} & The title of the theorem. \\
+\hline
+{\em reset} & Indicates if the solver will be reset after the proof or not, True by default. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of the theorem (sat, unsat or unknown) 
+\end{DoxyReturn}
+
+
+Definition at line 145 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a94d6ccd0151825f3405c1ebccf8532b9}\label{namespacemeyer_1_1util_1_1z3py__util_a94d6ccd0151825f3405c1ebccf8532b9}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!show\+\_\+record\+\_\+element@{show\+\_\+record\+\_\+element}}
+\index{show\+\_\+record\+\_\+element@{show\+\_\+record\+\_\+element}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{show\+\_\+record\+\_\+element()}{show\_record\_element()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+show\+\_\+record\+\_\+element (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{record,  }\item[{}]{element }\end{DoxyParamCaption})}
+
+
+
+Prints the name of an element and call unveil to print its content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver currently used. \\
+\hline
+{\em record} & The name of the record. \\
+\hline
+{\em element} & The element that needs to be printed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 122 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a95c84051003c44372826c0350d2d4042}\label{namespacemeyer_1_1util_1_1z3py__util_a95c84051003c44372826c0350d2d4042}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!show\+\_\+set\+\_\+element@{show\+\_\+set\+\_\+element}}
+\index{show\+\_\+set\+\_\+element@{show\+\_\+set\+\_\+element}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{show\+\_\+set\+\_\+element()}{show\_set\_element()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+show\+\_\+set\+\_\+element (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{record }\end{DoxyParamCaption})}
+
+
+
+Prints the name of a set and its content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver currently used. \\
+\hline
+{\em record} & The name of the record. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 132 of file z3py\+\_\+util.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1util_1_1z3py__util_a4eea2be8cfebc20260a595ef0152781c}\label{namespacemeyer_1_1util_1_1z3py__util_a4eea2be8cfebc20260a595ef0152781c}} 
+\index{meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}!unveil@{unveil}}
+\index{unveil@{unveil}!meyer\+::util\+::z3py\+\_\+util@{meyer\+::util\+::z3py\+\_\+util}}
+\subsubsection{\texorpdfstring{unveil()}{unveil()}}
+{\footnotesize\ttfamily def meyer.\+util.\+z3py\+\_\+util.\+unveil (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{item,  }\item[{}]{phase = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Recursive function that prints the elements of an element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver currently used. \\
+\hline
+{\em item} & The item that needs to be printed Recursive functions that can be used to print the composition of an item used in the theorem (such as a program) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 94 of file z3py\+\_\+util.\+py.
+

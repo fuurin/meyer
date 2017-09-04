@@ -1,0 +1,104 @@
+\hypertarget{namespacemeyer_1_1special__program}{}\section{meyer.\+special\+\_\+program Namespace Reference}
+\label{namespacemeyer_1_1special__program}\index{meyer.\+special\+\_\+program@{meyer.\+special\+\_\+program}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1special__program_a1ca0361ff0637d102b69809d581c571e}{fail} (solver)
+\begin{DoxyCompactList}\small\item\em Creates the fail program. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1special__program_a82762750ef41bb2f8580570bb8905df5}{havoc} (solver)
+\begin{DoxyCompactList}\small\item\em Creates the havoc program. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1special__program_acb9cc59171a05af2110ca447780028c4}{skip} (solver)
+\begin{DoxyCompactList}\small\item\em Creates the skip program. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1special__program_a16ef00406a38891967508e7b6b02cd9b}{total} (solver)
+\begin{DoxyCompactList}\small\item\em Creates a total program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemeyer_1_1special__program_a1ca0361ff0637d102b69809d581c571e}\label{namespacemeyer_1_1special__program_a1ca0361ff0637d102b69809d581c571e}} 
+\index{meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}!fail@{fail}}
+\index{fail@{fail}!meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}}
+\subsubsection{\texorpdfstring{fail()}{fail()}}
+{\footnotesize\ttfamily def meyer.\+special\+\_\+program.\+fail (\begin{DoxyParamCaption}\item[{}]{solver }\end{DoxyParamCaption})}
+
+
+
+Creates the fail program. 
+
+The program fail is nowhere applicable ($<$∅, ∅$>$). Its set, precondition and postcondition are empty. 
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program will be defined. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The fail program. 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file special\+\_\+program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1special__program_a82762750ef41bb2f8580570bb8905df5}\label{namespacemeyer_1_1special__program_a82762750ef41bb2f8580570bb8905df5}} 
+\index{meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}!havoc@{havoc}}
+\index{havoc@{havoc}!meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}}
+\subsubsection{\texorpdfstring{havoc()}{havoc()}}
+{\footnotesize\ttfamily def meyer.\+special\+\_\+program.\+havoc (\begin{DoxyParamCaption}\item[{}]{solver }\end{DoxyParamCaption})}
+
+
+
+Creates the havoc program. 
+
+The program havoc is always applicable ($<$S × S, S$>$). 
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program will be defined. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The havoc program. 
+\end{DoxyReturn}
+
+
+Definition at line 31 of file special\+\_\+program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1special__program_acb9cc59171a05af2110ca447780028c4}\label{namespacemeyer_1_1special__program_acb9cc59171a05af2110ca447780028c4}} 
+\index{meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}!skip@{skip}}
+\index{skip@{skip}!meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}}
+\subsubsection{\texorpdfstring{skip()}{skip()}}
+{\footnotesize\ttfamily def meyer.\+special\+\_\+program.\+skip (\begin{DoxyParamCaption}\item[{}]{solver }\end{DoxyParamCaption})}
+
+
+
+Creates the skip program. 
+
+The program skip is always applicable ($<$(λx\+: S $\vert$ \{x\}), S$>$). Leaves the state exactly as it was. 
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program will be defined. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The skip program. 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file special\+\_\+program.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1special__program_a16ef00406a38891967508e7b6b02cd9b}\label{namespacemeyer_1_1special__program_a16ef00406a38891967508e7b6b02cd9b}} 
+\index{meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}!total@{total}}
+\index{total@{total}!meyer\+::special\+\_\+program@{meyer\+::special\+\_\+program}}
+\subsubsection{\texorpdfstring{total()}{total()}}
+{\footnotesize\ttfamily def meyer.\+special\+\_\+program.\+total (\begin{DoxyParamCaption}\item[{}]{solver }\end{DoxyParamCaption})}
+
+
+
+Creates a total program. 
+
+A program is total if its precondition is his set. 
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the program will be defined. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A total program. 
+\end{DoxyReturn}
+
+
+Definition at line 61 of file special\+\_\+program.\+py.
+

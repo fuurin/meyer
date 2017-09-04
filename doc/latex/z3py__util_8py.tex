@@ -1,0 +1,47 @@
+\hypertarget{z3py__util_8py}{}\section{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/util/z3py\+\_\+util.py File Reference}
+\label{z3py__util_8py}\index{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/util/z3py\+\_\+util.\+py@{D\+:/cygwin/home/\+Kairo/\+Python/meyer/meyer/util/z3py\+\_\+util.\+py}}
+
+
+This module is used to construct special variables that are needed in theorem proving.  
+
+
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacemeyer_1_1util_1_1z3py__util}{meyer.\+util.\+z3py\+\_\+util}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_ab669d0e9517ca9e314995cacdb9d451c}{meyer.\+util.\+z3py\+\_\+util.\+id\+\_\+name} (name)
+\begin{DoxyCompactList}\small\item\em Concatenates the name of the element with its ID, and return the string result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8747354710be05db88bc9188dfa16b30}{meyer.\+util.\+z3py\+\_\+util.\+id\+\_\+names} (names)
+\begin{DoxyCompactList}\small\item\em Concatenates the names of the elements with their I\+Ds, and return the string result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a09fd9b270cf6714742578ca63a5cbb42}{meyer.\+util.\+z3py\+\_\+util.\+const} (name, sort)
+\begin{DoxyCompactList}\small\item\em Creates a new const element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8565362aa72ebb1f4f22eb0950d08609}{meyer.\+util.\+z3py\+\_\+util.\+consts} (names, sort)
+\begin{DoxyCompactList}\small\item\em Creates multiple new consts elements of the same type. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a347859270b8ef0d7bb63d7840aa5f4aa}{meyer.\+util.\+z3py\+\_\+util.\+function} (name, sort)
+\begin{DoxyCompactList}\small\item\em Creates a function element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a6cf5a3dfdff69d332f989d1b8f73119b}{meyer.\+util.\+z3py\+\_\+util.\+functions} (names, sort)
+\begin{DoxyCompactList}\small\item\em Creates multiple functions elements. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a8512b24ebe7ccd137b53ba52407415fb}{meyer.\+util.\+z3py\+\_\+util.\+model} (solver, instance)
+\begin{DoxyCompactList}\small\item\em Returns the model of a solver after checking whether its result. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_ad469c85dd6ea1c5d3641446ea0246166}{meyer.\+util.\+z3py\+\_\+util.\+evaluate} (solver, function)
+\begin{DoxyCompactList}\small\item\em Evaluates the content of an element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a88b1476f6b8d614eb1907a94d711f40d}{meyer.\+util.\+z3py\+\_\+util.\+as\+\_\+list} (solver, as\+\_\+array)
+\begin{DoxyCompactList}\small\item\em Returns the list corresponding to an array of an element of the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a4eea2be8cfebc20260a595ef0152781c}{meyer.\+util.\+z3py\+\_\+util.\+unveil} (solver, item, phase=0)
+\begin{DoxyCompactList}\small\item\em Recursive function that prints the elements of an element. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a94d6ccd0151825f3405c1ebccf8532b9}{meyer.\+util.\+z3py\+\_\+util.\+show\+\_\+record\+\_\+element} (solver, record, element)
+\begin{DoxyCompactList}\small\item\em Prints the name of an element and call unveil to print its content. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a95c84051003c44372826c0350d2d4042}{meyer.\+util.\+z3py\+\_\+util.\+show\+\_\+set\+\_\+element} (solver, record)
+\begin{DoxyCompactList}\small\item\em Prints the name of a set and its content. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1util_1_1z3py__util_a6d3bdd5583300633c2b4562123a3e876}{meyer.\+util.\+z3py\+\_\+util.\+proof} (solver, title, reset=True)
+\begin{DoxyCompactList}\small\item\em Checks if a solver instance is sat, unsat or unknown, returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This module is used to construct special variables that are needed in theorem proving. 
+
+This module attributes an ID to each element used in the proof of a theorem. It also allows the construction of consts, functions and permits to print them. 

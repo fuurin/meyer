@@ -1,0 +1,183 @@
+\hypertarget{namespacemeyer_1_1constructs}{}\section{meyer.\+constructs Namespace Reference}
+\label{namespacemeyer_1_1constructs}\index{meyer.\+constructs@{meyer.\+constructs}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacemeyer_1_1constructs_ae659fbbcaf6239c8c8a1e79ee97b7134}{choice} (solver, p1, p2)
+\begin{DoxyCompactList}\small\item\em Creates a new program that is the choice operation between two programs, and add the assumptions in the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_a8bb4c363d27270f0a745f816d1e75814}{composition} (solver, p1, p2)
+\begin{DoxyCompactList}\small\item\em Creates a new program that is the composition operation between two programs, and add the assumptions in the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_ac7888a6a7eeec7bbd29aad3bc2791619}{composition\+\_\+is\+\_\+feasible} (p1, p2)
+\begin{DoxyCompactList}\small\item\em For complecated proofs using composition and feasible. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_adcab11ce5ea89886576f593f6d2926f6}{restriction} (solver, c, p)
+\begin{DoxyCompactList}\small\item\em Creates a new program that is the restriction operation between a program and a set, and add the assumptions in the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_ad3cf2dbc20a62597059a34e860d64515}{corestriction} (solver, p, c)
+\begin{DoxyCompactList}\small\item\em Creates a new program that is the corestriction operation between a program and a set, and add the assumptions in the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_a0646fbb3ed8f783ab062b3d3dce3b170}{atomic\+\_\+concurrency} (s, p1, p2)
+\begin{DoxyCompactList}\small\item\em Creates a new program that is the atomic concurrency between two programs, and add the assumptions to in the solver. \end{DoxyCompactList}\item 
+def \hyperlink{namespacemeyer_1_1constructs_a98537558a6de117241d356fe9e1a8600}{newope} (solver, p1, p2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_a0646fbb3ed8f783ab062b3d3dce3b170}\label{namespacemeyer_1_1constructs_a0646fbb3ed8f783ab062b3d3dce3b170}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!atomic\+\_\+concurrency@{atomic\+\_\+concurrency}}
+\index{atomic\+\_\+concurrency@{atomic\+\_\+concurrency}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{atomic\+\_\+concurrency()}{atomic\_concurrency()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+atomic\+\_\+concurrency (\begin{DoxyParamCaption}\item[{}]{s,  }\item[{}]{p1,  }\item[{}]{p2 }\end{DoxyParamCaption})}
+
+
+
+Creates a new program that is the atomic concurrency between two programs, and add the assumptions to in the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the atomic ocncurrency will be added. \\
+\hline
+{\em p1} & The first program. \\
+\hline
+{\em 2} & The second program. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program that is the atomic concurrency of p1 and p2. 
+\end{DoxyReturn}
+
+
+Definition at line 99 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_ae659fbbcaf6239c8c8a1e79ee97b7134}\label{namespacemeyer_1_1constructs_ae659fbbcaf6239c8c8a1e79ee97b7134}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!choice@{choice}}
+\index{choice@{choice}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{choice()}{choice()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+choice (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{p1,  }\item[{}]{p2 }\end{DoxyParamCaption})}
+
+
+
+Creates a new program that is the choice operation between two programs, and add the assumptions in the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the choice will be added. \\
+\hline
+{\em p1} & The first program of the choice (left side). \\
+\hline
+{\em p2} & The second program of the choice (right side). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program created, that is the choice of p1 and p2. 
+\end{DoxyReturn}
+
+
+Definition at line 13 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_a8bb4c363d27270f0a745f816d1e75814}\label{namespacemeyer_1_1constructs_a8bb4c363d27270f0a745f816d1e75814}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!composition@{composition}}
+\index{composition@{composition}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{composition()}{composition()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+composition (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{p1,  }\item[{}]{p2 }\end{DoxyParamCaption})}
+
+
+
+Creates a new program that is the composition operation between two programs, and add the assumptions in the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the composition will be added. \\
+\hline
+{\em p1} & The first program of the composition (left side). \\
+\hline
+{\em p2} & The second program of the composition (right side). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program created, that is the composition of p1 and p2. 
+\end{DoxyReturn}
+
+
+Definition at line 33 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_ac7888a6a7eeec7bbd29aad3bc2791619}\label{namespacemeyer_1_1constructs_ac7888a6a7eeec7bbd29aad3bc2791619}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!composition\+\_\+is\+\_\+feasible@{composition\+\_\+is\+\_\+feasible}}
+\index{composition\+\_\+is\+\_\+feasible@{composition\+\_\+is\+\_\+feasible}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{composition\+\_\+is\+\_\+feasible()}{composition\_is\_feasible()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+composition\+\_\+is\+\_\+feasible (\begin{DoxyParamCaption}\item[{}]{p1,  }\item[{}]{p2 }\end{DoxyParamCaption})}
+
+
+
+For complecated proofs using composition and feasible. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p1} & The first program (left side). \\
+\hline
+{\em p2} & The second program (right side). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 51 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_ad3cf2dbc20a62597059a34e860d64515}\label{namespacemeyer_1_1constructs_ad3cf2dbc20a62597059a34e860d64515}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!corestriction@{corestriction}}
+\index{corestriction@{corestriction}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{corestriction()}{corestriction()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+corestriction (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{p,  }\item[{}]{c }\end{DoxyParamCaption})}
+
+
+
+Creates a new program that is the corestriction operation between a program and a set, and add the assumptions in the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the corestriction will be added. \\
+\hline
+{\em p} & The program of the corestriction (left side). \\
+\hline
+{\em c} & The set of the corestriction (right side). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program created, that is the corestriction of p by c. 
+\end{DoxyReturn}
+
+
+Definition at line 81 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_a98537558a6de117241d356fe9e1a8600}\label{namespacemeyer_1_1constructs_a98537558a6de117241d356fe9e1a8600}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!newope@{newope}}
+\index{newope@{newope}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{newope()}{newope()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+newope (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{p1,  }\item[{}]{p2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 104 of file constructs.\+py.
+
+\mbox{\Hypertarget{namespacemeyer_1_1constructs_adcab11ce5ea89886576f593f6d2926f6}\label{namespacemeyer_1_1constructs_adcab11ce5ea89886576f593f6d2926f6}} 
+\index{meyer\+::constructs@{meyer\+::constructs}!restriction@{restriction}}
+\index{restriction@{restriction}!meyer\+::constructs@{meyer\+::constructs}}
+\subsubsection{\texorpdfstring{restriction()}{restriction()}}
+{\footnotesize\ttfamily def meyer.\+constructs.\+restriction (\begin{DoxyParamCaption}\item[{}]{solver,  }\item[{}]{c,  }\item[{}]{p }\end{DoxyParamCaption})}
+
+
+
+Creates a new program that is the restriction operation between a program and a set, and add the assumptions in the solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & The solver in which the restriction will be added. \\
+\hline
+{\em c} & The set of the restriction (left side). \\
+\hline
+{\em p} & The program of the restriction (right side). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The program created, that is the restriction of p by c. 
+\end{DoxyReturn}
+
+
+Definition at line 62 of file constructs.\+py.
+
