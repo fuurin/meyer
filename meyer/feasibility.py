@@ -21,11 +21,12 @@ def is_feasible(p, strong=False):
 			Exists(y, p.post(x,y))
 		))
 
-def feasible(prog, strong=False):
-	if type(prog) == list:
-		return [is_feasible(p, strong) for p in prog]
-	else:
-		return is_feasible(prog)
+def feasible(*progs, strong=False):
+	if len(progs) == 0:
+		raise Exception("feasible is receiving nothing.")
+	if len(progs) == 1:
+		return is_feasible(progs[0])
+	return [is_feasible(p, strong) for p in list(progs)]
 
 ## Creates the assumption of infeasibility on a program.
 #  @param p The program that needs to be infeasible.

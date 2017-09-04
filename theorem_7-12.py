@@ -46,7 +46,7 @@ def P11():
 	q, p1, p2 = progs(s, 'q p1 p2')
 	lhs = Comp(q, Choi(p1, p2))
 	rhs = Choi(Comp(q, p1), Comp(q, p2))
-	s.add(feasible([q, p1, p2], True)) # Additional assumption
+	s.add(feasible(q, p1, p2, strong=True)) # Additional assumption
 	conclude(s, eq(lhs, rhs), title)
 
 def P12():
@@ -54,7 +54,7 @@ def P12():
 	q, p1, p2 = progs(s, 'q p1 p2')
 	lhs = Comp(Choi(p1, p2), q)
 	rhs = Choi(Comp(p1, q), Comp(p2, q))
-	s.add(feasible([q, p1, p2], True)) # Additional assumption
+	s.add(feasible(q, p1, p2, strong=True)) # Additional assumption
 	conclude(s, eq(lhs, rhs), title)
 	
 P7()

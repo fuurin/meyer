@@ -20,7 +20,7 @@ def P32_commutative():
 def P32_associative():
 	title = "P32 Atomic concurrency “||” is associative. (p1 || p2) || p3 = p1 || (p2 || p3)"
 	p1, p2, p3 = progs(s, 'p1 p2 p3')
-	s.add(feasible([p1,p2,p3]))
+	s.add(feasible(p1,p2,p3))
 	lhs = Atom(Atom(p1, p2), p3)
 	rhs = Atom(p1, Atom(p2, p3))
 	conclude(s, eq(lhs, rhs), title)
@@ -34,7 +34,7 @@ def P32_refinement_safe():
 def P33():
 	title = "P33 p1 || (p2 ∪ p3) = (p1 || p2) ∪ (p1 || p3)"
 	p1, p2, p3 = progs(s, 'p1 p2 p3')
-	s.add(feasible([p1,p2,p3]))
+	s.add(feasible(p1,p2,p3))
 	lhs = Atom(p1, Choi(p2, p3))
 	rhs = Choi(Atom(p1, p2), Atom(p2, p3))
 	conclude(s, eq(lhs, rhs), title)
@@ -78,7 +78,7 @@ def P39():
 	s.add(commute(p1, p2))
 	conclude(s, eq(Atom(p1, p2), Comp(p1, p2)), title)
 
-# P32_commutative()
+P32_commutative()
 P32_associative() # counter example when feasible
 P32_refinement_safe() # counter example
 P33() # counter example when feasible
@@ -87,4 +87,4 @@ P35() # counter example
 P36() # counter example
 P37() # counter example
 P38() # counter example
-# P39()
+P39()

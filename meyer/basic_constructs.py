@@ -5,19 +5,18 @@ from .util.z3py_util import const
 from .util.z3py_set import SetBase
 
 class Choice(ProgramBase):
-	"""Choice, performs like p1 or p2."""
-	def __init__(self, p1, p2):
-		self.p1 = p1
-		self.p2 = p2
+	"""Choice, performs like p1 or p2 or ..."""
+	def __init__(self, *p):
+		self.p = list(p)
 
 	def set(self, x):
-		return Or(self.p1.set(x), self.p2.set(x))
+		return Or([p.set(x) for p in self.p])
 
 	def pre(self, x):
-		return Or(self.p1.pre(x), self.p2.pre(x))
+		return Or([p.pre(x) for p in self.p])
 
 	def post(self, x, y):
-		return Or(self.p1.post(x, y), self.p2.post(x, y))
+		return Or([p.post(x, y) for p in self.p])
 
 class Choi(Choice):
 	"""This is short name for Choice"""

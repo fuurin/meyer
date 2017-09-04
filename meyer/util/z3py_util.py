@@ -152,6 +152,6 @@ def proof(solver, title=None, reset=True):
 			# print(solver.model(), "\n")
 			pass
 		if result == unknown: 
-			print(solver.reason_unknown(), "\n")
+			print(red(solver.reason_unknown()), "\n")
 	if reset: solver.reset()
 	return result

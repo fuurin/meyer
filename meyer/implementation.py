@@ -1,7 +1,7 @@
 # encoding: utf-8
 from z3 import And
 from .feasibility import feasible
-from .refinement import is_refinement_of
+from .refinement import is_ref_of
 ## @file implementation.py
 #  Module used to define the operation of implementation between two programs.
 # 
@@ -14,7 +14,7 @@ from .refinement import is_refinement_of
 def is_implementation_of(p1, p2):
 	return	And(
 				feasible(p1),
-				is_refinement_of(p1,p2)
+				is_ref_of(p1,p2)
 			)
 
 ## This is short name for a relation is_implementation of
