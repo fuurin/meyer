@@ -1,6 +1,5 @@
 # encoding: utf-8
 from z3 import ForAll, Implies, And
-from .program import U, set_, pre_, post_
 from .util.z3py_util import consts
 ## @file refinement.py
 #  Module used to define the operation of refinement between two programs.

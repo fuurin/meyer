@@ -87,7 +87,49 @@ class RestrictionPre(ProgramBase):
 		return And(self.p.post(x, y), self.pp.pre(x))
 
 class RestPre(RestrictionPre):
-	"""This is short name for PreRestriction"""
+	"""This is short name for RestrictionPre"""
+
+
+class RestrictionDomainPost(ProgramBase):
+	"""PreRestriction, performs like a domain of post_p on program p."""
+	def __init__(self, p_for_dom, p):
+		self.pd = p_for_dom
+		self.p = p
+
+	def set(self, x):
+		return self.p.set(x)
+
+	def pre(self, x):
+		y = const('y', U)
+		return And(self.p.pre(x), Exists(y, self.pd.post(x, y)))
+
+	def post(self, x, y):
+		z = const('z', U)
+		return And(self.p.post(x, y), Exists(z, self.pd.post(x, z)))
+
+class RestDom(RestrictionDomainPost):
+	"""This is short name for RestrictionDomainPost"""
+
+
+class RestrictionRangePost(ProgramBase):
+	"""PreRestriction, performs like a range of post_p on program p."""
+	def __init__(self, p_for_ran, p):
+		self.pr = p_for_ran
+		self.p = p
+
+	def set(self, x):
+		return self.p.set(x)
+
+	def pre(self, x):
+		y = const('y', U)
+		return And(self.p.pre(x), Exists(y, self.pr.post(x, y)))
+
+	def post(self, x, y):
+		z = const('z', U)
+		return And(self.p.post(x, y), Exists(z, self.pr.post(x, z)))
+
+class RestRan(RestrictionRangePost):
+	"""This is short name for RestrictionRangePost"""
 
 
 class Corestriction(ProgramBase):
