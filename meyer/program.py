@@ -13,9 +13,9 @@ from .util.z3py_util import evaluate, proof as super_proof
 #
 #  It defines the new Datatype called Prog, that is composed of a set, a precondition and a postcondition, and operations that can be useful when working with those programs.
 
-U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
+# U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
 # U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,100)])
-# U = IntSort()
+U = IntSort()
 # U = RealSort()
 
 SET = ArraySort(U, BoolSort())
