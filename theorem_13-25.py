@@ -133,14 +133,11 @@ def P25():
 	# s.add(eq_set(p, f)) # Additional assumption
 	conclude(s, is_ref_of(f, p), title2)
 
-"""
 P13() # p must be feasible for (p ; Skip) = p
 P14()
 P15()
 P16()
 P17() #counter example, p must be feasible
-"""
-
 P18() 
 P19()
 P20()

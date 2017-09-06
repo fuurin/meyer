@@ -13,9 +13,9 @@ from .util.z3py_util import evaluate, proof as super_proof
 #
 #  It defines the new Datatype called Prog, that is composed of a set, a precondition and a postcondition, and operations that can be useful when working with those programs.
 
-# U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
+U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
 # U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,100)])
-U = IntSort()
+# U = IntSort()
 # U = RealSort()
 
 SET = ArraySort(U, BoolSort())
@@ -84,9 +84,17 @@ class Program(ProgramBase):
 #  @param prog The prog that needs constraints.
 #  @return The constraints linked to a program.
 def prog_constraint(prog):
-	x,y = consts('x y', U)
-	return 	ForAll([x,y], And(
-				Implies(pre_(prog)[x], set_(prog)[x]),
+	x,y,z = consts('x y z', U)
+	# 一部の証明がどちらを使うかによりUnknownになる
+	# return 	ForAll([x,y], And(
+	# 			Implies(pre_(prog)[x], set_(prog)[x]),
+	# 			Implies(
+	# 				post_(prog)[x][y], 
+	# 				And(set_(prog)[x], set_(prog)[y])
+	# 			)
+	# 		))
+	return 	ForAll([x,y,z], And(
+				Implies(pre_(prog)[z], set_(prog)[z]),
 				Implies(
 					post_(prog)[x][y], 
 					And(set_(prog)[x], set_(prog)[y])
