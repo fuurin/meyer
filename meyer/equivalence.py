@@ -1,5 +1,5 @@
 # encoding: utf-8
-from z3 import ForAll, And
+from z3 import ForAll,Exists, And
 from .program import U
 from .util.z3py_util import const, consts
 ## @file equivalence.py
@@ -57,6 +57,17 @@ def eq_pre(p1, p2):
 def eq_post(p1, p2):
 	x, y = consts('x y', U)
 	return ForAll([x, y], p1.post(x, y) == p2.post(x, y))
+
+## Creates the assumption of equality between two ranges of postconditions of programs.
+#  @param p1 The first program.
+#  @param p2 The second program.
+#  @return The assumption of equality between two ranges of postconditions of programs.
+def eq_ran(p1, p2):
+	x1, x2, y = consts('x1 x2 y', U)
+	return ForAll(y, 
+		Exists(x1, And(p1.pre(x1), p1.post(x1, y))) == 
+		Exists(x2, And(p2.pre(x2), p2.post(x2, y)))
+	)
 
 ## Creates the assumption of equality between two postconditions of feasible programs.
 #  @param p1 The first program.
