@@ -121,7 +121,11 @@ def prog(solver, name):
 #  @param names The names of the created programs, separated by space character.
 #  @return The map of the program instances created.
 def progs(solver, names):
-	return [prog(solver, name) for name in names.split(' ')]
+	ps = [prog(solver, name) for name in names.split(' ')]
+	if len(ps) == 1:
+		return ps[0]
+	else:
+		return ps
 
 ## Prints a program
 #  @param solver The solver in which the program is.
