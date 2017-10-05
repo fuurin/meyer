@@ -1,10 +1,10 @@
 # encoding: utf-8
 from z3 import Exists, Or, And
-from .program import U, ProgramBase
+from .program import U, Program
 from .util.z3py_util import const
 from .util.z3py_set import SetBase
 
-class Choice(ProgramBase):
+class Choice(Program):
 	"""Choice, performs like p1 or p2 or ..."""
 	def __init__(self, *p):
 		self.p = list(p)
@@ -18,12 +18,13 @@ class Choice(ProgramBase):
 	def post(self, x, y):
 		return Or([p.post(x, y) for p in self.p])
 
+
 class Choi(Choice):
 	"""This is short name for Choice"""
 
 
 
-class Composition(ProgramBase):
+class Composition(Program):
 	"""Composition, performs like p1 then like p2."""
 	def __init__(self, p1, p2):
 		self.p1 = p1
@@ -49,10 +50,13 @@ class Comp(Composition):
 
 
 
-class Restriction(ProgramBase):
+class Restriction(Program):
 	"""Restriction, performs like a set c on program p."""
 	def __init__(self, c, p):
-		self.c = c
+		if isinstance(c, SetBase):
+			self.c = c.has
+		else:
+			self.c = c
 		self.p = p
 
 	def set(self, x):
@@ -61,77 +65,17 @@ class Restriction(ProgramBase):
 	def pre(self, x):
 		# return self.p.pre(x) # This causes counter example in P6
 		# return And(self.p.pre(x)) # interesting result; this causes unknown
-		return And(self.p.pre(x), self.c.has(x))
+		return And(self.p.pre(x), self.c(x))
 
 	def post(self, x, y):
-		return And(self.p.post(x, y), self.c.has(x))
+		return And(self.p.post(x, y), self.c(x))
 
 class Rest(Restriction):
 	"""This is short name for Restriction"""
 
+	
 
-class RestrictionPre(ProgramBase):
-	"""PreRestriction, performs like a Pre_p on program p."""
-	def __init__(self, p_for_pre, p):
-		self.pp = p_for_pre
-		self.p = p
-
-	def set(self, x):
-		return self.p.set(x)
-
-	def pre(self, x):
-		return And(self.p.pre(x), self.pp.pre(x))
-
-	def post(self, x, y):
-		return And(self.p.post(x, y), self.pp.pre(x))
-
-class RestPre(RestrictionPre):
-	"""This is short name for RestrictionPre"""
-
-
-class RestrictionDomainPost(ProgramBase):
-	"""PreRestriction, performs like a domain of post_p on program p."""
-	def __init__(self, p_for_dom, p):
-		self.pd = p_for_dom
-		self.p = p
-
-	def set(self, x):
-		return self.p.set(x)
-
-	def pre(self, x):
-		y = const('y', U)
-		return And(self.p.pre(x), Exists(y, self.pd.post(x, y)))
-
-	def post(self, x, y):
-		z = const('z', U)
-		return And(self.p.post(x, y), Exists(z, self.pd.post(x, z)))
-
-class RestDom(RestrictionDomainPost):
-	"""This is short name for RestrictionDomainPost"""
-
-
-class RestrictionRangePost(ProgramBase):
-	"""PreRestriction, performs like a range of post_p on program p."""
-	def __init__(self, p_for_ran, p):
-		self.pr = p_for_ran
-		self.p = p
-
-	def set(self, x):
-		return self.p.set(x)
-
-	def pre(self, x):
-		y = const('y', U)
-		return And(self.p.pre(x), Exists(y, self.pr.post(x, y)))
-
-	def post(self, x, y):
-		z = const('z', U)
-		return And(self.p.post(x, y), Exists(z, self.pr.post(x, z)))
-
-class RestRan(RestrictionRangePost):
-	"""This is short name for RestrictionRangePost"""
-
-
-class Corestriction(ProgramBase):
+class Corestriction(Program):
 	"""
 	Corestriction, performs like 
 	p applied only when results satisfy a set C.
