@@ -1,6 +1,7 @@
 # encoding: utf-8
 from z3 import ForAll, Exists, Implies, And, Not, Function
 from .program import U, pre_, post_
+from .util.z3py_set import eq, included
 from .util.z3py_util import const, consts
 ## @file feasibility.py
 #  Module used to define the condition of feasibility on a program.
@@ -12,14 +13,10 @@ from .util.z3py_util import const, consts
 #  @param strong Let it be True if you need pre_p = dom(post_p) assumption.
 #  @return The assumption.
 def is_feasible(p, strong=False):
-	x,y = consts('x y', U)
 	if strong:
-		return ForAll(x, p.pre(x) == Exists(y, p.post(x,y)))
+		return eq(p.pre, p.dom_post)
 	else:
-		return ForAll(x, Implies(
-			p.pre(x), 
-			Exists(y, p.post(x,y))
-		))
+		return included(p.pre, p.dom_post)
 
 def feasible(*progs, strong=False):
 	if len(progs) == 0:
