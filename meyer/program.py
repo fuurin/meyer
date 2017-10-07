@@ -4,7 +4,8 @@ from z3 import Datatype, BoolVal
 from z3 import EnumSort, BoolSort, IntSort, RealSort, ArraySort
 from z3 import ForAll, Exists, And, Not, Implies
 from z3 import sat
-from .util.z3py_set import show_set
+from .util.z3py_set import set_sort as set_set_sort, show_set
+from .util.z3py_rel import set_sort as set_rel_sort
 from .util.z3py_util import const, consts, show_record_element
 from .util.z3py_util import evaluate, proof as super_proof
  
@@ -17,6 +18,9 @@ U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
 # U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,100)])
 # U = IntSort()
 # U = RealSort()
+
+set_set_sort(U)
+set_rel_sort(U, U)
 
 SET = ArraySort(U, BoolSort())
 # OOPSet = ArraySort(IntSort(), ArraySort(U, BoolSort()))
@@ -65,13 +69,13 @@ class ProgramBase():
 		pass
 
 	#  @param x An element that is included in domain of post of this program.
-	#  @return The constraint that x is included in Set of this program.
+	#  @return The constraint that x is included in domain of post of this program.
 	@abstractmethod
 	def dom_post(self, x):
 		pass
 
 	#  @param x An element that is included in range of post of this program.
-	#  @return The constraint that x is included in Set of this program.
+	#  @return The constraint that x is included in range of post of this program.
 	@abstractmethod
 	def ran_post(self, x):
 		pass

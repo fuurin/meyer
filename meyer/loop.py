@@ -1,15 +1,13 @@
-from .program import U, ProgramBase
-from .util.z3py_set import Cpl
 # encoding: utf-8
 from .special_programs import Skip
-from .basic_constructs import Choi, Comp, Rest, RestPre, Corest
+from .basic_constructs import Choi, Comp, Rest, Corest
 from .util.z3py_set import Cpl
 
 LOOP_NUM = 10
 
 def fixed_repetition(p, i):
 	if i==0:
-		return RestPre(p, Skip())
+		return Rest(p.dom, Skip())
 	else:
 		return Comp(p, fixed_repetition(p, i-1))
 

@@ -1,5 +1,5 @@
 # encoding: utf-8
-from .color import red, cyan, yellow
+from color import red, cyan, yellow
 from z3 import Const, Consts, Function, is_ast, is_bool, is_as_array
 from z3 import simplify, get_as_array_func
 from z3 import sat, unsat, unknown

@@ -22,6 +22,7 @@ def is_refinement_of(p2, p1):
 				ForAll((c,d), Implies(
 					And(p2.post(c,d), p1.pre(c)), p1.post(c,d)
 				))
+				# RelIncluded(RelRest(p2.post, p1.pre), p1.post)
 			)
 
 ## This is short name for a relation is_refinement_of

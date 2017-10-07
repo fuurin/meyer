@@ -1,6 +1,6 @@
 # encoding: utf-8
 from z3 import ForAll, Implies, And, Not
-from .program import U, prog, ProgramBase
+from .program import U, prog, Program
 from .util.z3py_util import const, consts
 
 ## @file special_program.py
@@ -11,7 +11,7 @@ from .util.z3py_util import const, consts
 # Each classes are equivalence to restricted special program instances.
 # However, one way may cause unknown. Then try another way.
 
-class Fail(ProgramBase):
+class Fail(Program):
 	def set(self, x):
 		return False
 
@@ -21,7 +21,7 @@ class Fail(ProgramBase):
 	def post(self, x, y):
 		return False
 
-class Havoc(ProgramBase):
+class Havoc(Program):
 	def set(self, x):
 		return True
 
@@ -31,7 +31,7 @@ class Havoc(ProgramBase):
 	def post(self, x, y):
 		return True
 
-class Skip(ProgramBase):
+class Skip(Program):
 	def set(self, x):
 		return True
 
@@ -64,7 +64,7 @@ def havoc(solver):
 def skip(solver):
 	skip = prog(solver, 'skip')
 	a, x, y = consts('a x y',U)
-	#Skip is always feasible
+	# Skip is always feasible
 	# solver.add(feasible(skip))
 	solver.add(And(
 		ForAll(a, skip.set(a)),

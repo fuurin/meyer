@@ -15,11 +15,10 @@ def functional(p):
 	c = set('c', U)
 	x,y = consts('x y', U)
 	return	And(
-				ForAll(x, Implies(c.has(x), p.set(x))),
-				Not(Exists(x, And(
-					c.has(x),
-					ForAll(y, And(p.post(y, x), c.has(y)))
-				)))
+				ForAll(x, Implies(c(x), p.set(x))),
+				Not(Exists(x, 
+					And(c(x), ForAll(y, And(p.post(y, x), c(y))))
+				))
 			)
 
 ## Creates the assumption of an imperative program.

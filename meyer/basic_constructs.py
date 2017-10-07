@@ -53,10 +53,7 @@ class Comp(Composition):
 class Restriction(Program):
 	"""Restriction, performs like a set c on program p."""
 	def __init__(self, c, p):
-		if isinstance(c, SetBase):
-			self.c = c.has
-		else:
-			self.c = c
+		self.c = c
 		self.p = p
 
 	def set(self, x):
@@ -90,11 +87,11 @@ class Corestriction(Program):
 	def pre(self, x):
 		y = const('y', U)
 		return Exists(y, And(
-			self.p.pre(x), self.p.post(x, y), self.c.has(y)
+			self.p.pre(x), self.p.post(x, y), self.c(y)
 		))
 
 	def post(self, x, y):
-		return And(self.p.post(x, y), self.c.has(y))
+		return And(self.p.post(x, y), self.c(y))
 
 class Corest(Corestriction):
 	"""This is short name for Corestriction"""
