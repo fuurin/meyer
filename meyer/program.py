@@ -2,7 +2,7 @@
 from abc import ABCMeta, abstractmethod
 from z3 import Datatype, BoolVal
 from z3 import EnumSort, BoolSort, IntSort, RealSort, ArraySort
-from z3 import ForAll, And, Not, Implies
+from z3 import ForAll, Exists, And, Not, Implies
 from z3 import sat
 from .util.z3py_set import show_set
 from .util.z3py_util import const, consts, show_record_element
@@ -52,9 +52,33 @@ class ProgramBase():
 	def post(self, x, y):
 		pass
 
+	#  @param x An element that is included in domain of this program.
+	#  @return The constraint that x is included in Set of this program.
+	@abstractmethod
+	def dom(self, x):
+		pass
+
+	#  @param x An element that is included in range of this program.
+	#  @return The constraint that x is included in Set of this program.
+	@abstractmethod
+	def ran(self, x):
+		pass
+
+	#  @param x An element that is included in domain of post of this program.
+	#  @return The constraint that x is included in Set of this program.
+	@abstractmethod
+	def dom_post(self, x):
+		pass
+
+	#  @param x An element that is included in range of post of this program.
+	#  @return The constraint that x is included in Set of this program.
+	@abstractmethod
+	def ran_post(self, x):
+		pass
+
 class Program(ProgramBase):
 	__metaclass__ = ABCMeta
-
+	
 	"""Base class for Program instance."""
 	#  @param p A program instance created by Z3.py.
 	def __init__(self, p):
@@ -79,6 +103,21 @@ class Program(ProgramBase):
 	#  @return The constraint that x is included in Set of this program.
 	def post(self, x, y):
 		return post_(self.p)[x][y]
+
+	def dom(self, x):
+		return self.pre(x)
+
+	def ran(self, y):
+		x = const('x', U)
+		return Exists(x, And(self.dom(x), self.post(x, y)))
+	
+	def dom_post(self, x):
+		y = const('y', U)
+		return Exists(y, self.post(x, y))
+
+	def ran_post(self, y):
+		x = const('x', U)
+		return Exists(x, self.post(x, y))
 	
 ## Use prog/progs _constraint to Prog constants.
 #  @param prog The prog that needs constraints.
