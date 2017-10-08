@@ -2,7 +2,6 @@
 from z3 import Exists, Or, And
 from .program import U, Program
 from .util.z3py_util import const
-from .util.z3py_set import SetBase
 
 class Choice(Program):
 	"""Choice, performs like p1 or p2 or ..."""

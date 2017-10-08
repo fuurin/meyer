@@ -1,14 +1,16 @@
 # encoding: utf-8
 from abc import ABCMeta, abstractmethod
 from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
-from z3py_set import  Set
-from z3py_util import const, unveil
+from .z3py_set import  Set
+from .z3py_util import const, unveil
 
 SORT_DOM = None
 SORT_RAN = None
 
 def set_sort(sort_dom, sort_ran):
+	global SORT_DOM
 	SORT_DOM = sort_dom
+	global SORT_RAN
 	SORT_RAN = sort_ran
 
 class RelationBase():
@@ -41,7 +43,7 @@ class Relation(RelationBase):
 	def __neg__(self):
 		return Complement(self)
 
-	def __div__(self, other):
+	def __truediv__(self, other):
 		return Restriction(self, other)
 
 	def __mod__(self, other):

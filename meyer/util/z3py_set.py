@@ -1,13 +1,18 @@
 # encoding: utf-8
 from abc import ABCMeta, abstractmethod
 from z3 import ArraySort, BoolSort, ForAll, And, Or, Not, Implies
-from z3py_util import const, show_set_element
+from .z3py_util import const, show_set_element
 
 SORT = None
 
 def set_sort(sort):
+	global SORT
 	SORT = sort
 
+def get_sort():
+	global SORT
+	return SORT
+	
 class SetBase():
 	"""Abstract Base Class for set instance."""
 	__metaclass__ = ABCMeta
@@ -95,8 +100,8 @@ def includes(s1, s2, sort=SORT):
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def included(s1, s2, sort=SORT):
-	x = const('x', sort)
+def included(s1, s2):
+	x = const('x', get_sort())
 	return ForAll(x, Implies(s1(x), s2(x)))
 
 ## Prints a set
