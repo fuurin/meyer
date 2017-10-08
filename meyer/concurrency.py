@@ -1,8 +1,8 @@
 # encoding: utf-8
 from .basic_constructs import Choi, Comp
-from .program import ProgramBase
+from .program import Program
 
-class AtomicConcurrency(ProgramBase):
+class AtomicConcurrency(Program):
 	def __init__(self, p1, p2):
 		part1 = Comp(p1, p2)
 		part2 = Comp(p2, p1)
@@ -20,7 +20,7 @@ class AtomicConcurrency(ProgramBase):
 class Atom(AtomicConcurrency):
 	"""This is short name for AtomicConcurrency"""
 
-class NonAtomicConcurrency(ProgramBase):
+class NonAtomicConcurrency(Program):
 	def __init__(self, p1, p2, q):
 		left = Comp(Atom(p1, q), p2)
 		right = Comp(p1, Atom(p2, q))

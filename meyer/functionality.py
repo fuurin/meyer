@@ -1,8 +1,7 @@
 # encoding: utf-8
-from z3 import ForAll, Exists, Implies, And, Not
-from .program import U
-from .util.z3py_util import consts
+from z3 import And, Not
 from .util.z3py_set import set
+from .util.z3py_rel import Img
 ## @file functionality.py
 #  Module used to define the condition of functionality on a program.
 # 
@@ -12,14 +11,8 @@ from .util.z3py_set import set
 #  @param p The program that needs to be functional.
 #  @return The assumption.
 def functional(p):
-	c = set('c', U)
-	x,y = consts('x y', U)
-	return	And(
-				ForAll(x, Implies(c(x), p.set(x))),
-				Not(Exists(x, 
-					And(c(x), ForAll(y, And(p.post(y, x), c(y))))
-				))
-			)
+	c = set('c')
+	return	And(c <= p.set, c | Img(p.post, c))
 
 ## Creates the assumption of an imperative program.
 #  @param p The program that needs to be imperative.

@@ -12,6 +12,9 @@ from .util.z3py_util import const, consts
 # However, one way may cause unknown. Then try another way.
 
 class Fail(Program):
+	def __init__(self):
+		pass
+
 	def set(self, x):
 		return False
 
@@ -22,6 +25,9 @@ class Fail(Program):
 		return False
 
 class Havoc(Program):
+	def __init__(self):
+		pass
+
 	def set(self, x):
 		return True
 
@@ -32,6 +38,9 @@ class Havoc(Program):
 		return True
 
 class Skip(Program):
+	def __init__(self):
+		pass
+
 	def set(self, x):
 		return True
 

@@ -1,7 +1,7 @@
 # encoding: utf-8
 from abc import ABCMeta, abstractmethod
 from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
-from .z3py_set import  Set
+from .z3py_set import Set
 from .z3py_util import const, unveil
 
 SORT_DOM = None
@@ -12,6 +12,16 @@ def set_sort(sort_dom, sort_ran):
 	SORT_DOM = sort_dom
 	global SORT_RAN
 	SORT_RAN = sort_ran
+
+def get_sort_dom():
+	global SORT_DOM
+	sort_dom = SORT_DOM
+	return sort_dom
+
+def get_sort_ran():
+	global SORT_RAN
+	sort_ran = SORT_RAN
+	return sort_ran
 
 class RelationBase():
 	"""Abstract Base Class for relation instance."""
@@ -80,47 +90,49 @@ class Rel(Relation):
 #  @param name The name of the created set.
 #  @param name The sort of the created set.
 #  @return The set instance created.
-def rel(name, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
+def rel(name):
 	return Rel(
-			const(name, 
-				ArraySort(sort_dom, ArraySort(sort_ran, BoolSort()))
-			), 
-			sort_dom, 
-			sort_ran
+		const(
+			name, 
+			ArraySort(
+				get_sort_dom(), 
+				ArraySort(get_sort_ran(), BoolSort())
+			)
 		)
+	)
 
 ## Creates multiple new sets.
 #  @param names The names of the created sets, separated by space character.
 #  @return a list of the set instances created.
-def rels(names, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
+def rels(names):
 	names = names.split(' ')
-	return [rel(name, sort_dom, sort_ran) for name in names]
+	return [rel(name) for name in names]
 
 ## Returns a constraint that two sets are same.
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def eq(r1, r2, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
-	x = const('x', sort_dom)
-	y = const('y', sort_ran)
+def eq(r1, r2):
+	x = const('x', get_sort_dom())
+	y = const('y', get_sort_ran())
 	return ForAll([x, y], r1(x, y) == r2(x, y))
 
 ## Returns a constraint that two sets are same.
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def includes(r1, r2, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
-	x = const('x', sort_dom)
-	y = const('y', sort_ran)
+def includes(r1, r2):
+	x = const('x', get_sort_dom())
+	y = const('y', get_sort_ran())
 	return ForAll([x, y], Implies(r2(x, y), r1(x, y)))
 
 ## Returns a constraint that two sets are same.
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def included(r1, r2, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
-	x = const('x', sort_dom)
-	y = const('y', sort_ran)
+def included(r1, r2):
+	x = const('x', get_sort_dom())
+	y = const('y', get_sort_ran())
 	return ForAll([x, y], Implies(r1(x, y), r2(x, y)))
 
 ## Prints a set
@@ -226,8 +238,8 @@ class Image(Set):
 
 	# @param y An element that is included in this Image of the relation.
 	# @return The constraint that x is included in this set.
-	def has(self, y, sort_dom=SORT_DOM):
-		x = const('x', sort_dom)
+	def has(self, y):
+		x = const('x', get_sort_dom())
 		return Exists(x, And(self.r(x, y), self.s(x)))
 
 	def z3(self):
@@ -245,8 +257,8 @@ class InverseImage(Set):
 
 	# @param x An element that is included in this Inverse image of the relation.
 	# @return The constraint that x is included in this set.
-	def has(self, x, sort_ran=SORT_RAN):
-		y = const('y', sort_ran)
+	def has(self, x):
+		y = const('y', get_sort_ran())
 		return Exists(y, And(self.r(x, y), self.s(y)))
 
 	def z3(self):
@@ -270,20 +282,25 @@ class Complement(Rel):
 class Cpl(Complement):
 	"""This is short name for Complement"""
 
-class Empty(RelationBase):
+class Empty(Relation):
 	"""An empty set"""
-	def __init__(self, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
-		self.sort_dom = sort_dom
-		self.sort_ran = sort_ran
+	def __init__(self):
+		self.sort_dom = get_sort_dom()
+		self.sort_ran = get_sort_ran()
 
 	def has(self, x, y):
 		return False
 
-class Universe(RelationBase):
+class Universe(Relation):
 	""" An Universe set"""
-	def __init__(self, sort_dom=SORT_DOM, sort_ran=SORT_RAN):
-		self.sort_dom = sort_dom
-		self.sort_ran = sort_ran
+	def __init__(self):
+		self.sort_dom = get_sort_dom()
+		self.sort_ran = get_sort_ran()
 
 	def has(self, x, y):
 		return True
+
+def well_founded(r):
+	x = const('x', get_sort_dom())
+	y = const('y', get_sort_ran())
+	return ForAll([x, y], Implies(r(x, y), x != y))

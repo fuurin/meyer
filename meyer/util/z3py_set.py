@@ -1,6 +1,6 @@
 # encoding: utf-8
 from abc import ABCMeta, abstractmethod
-from z3 import ArraySort, BoolSort, ForAll, And, Or, Not, Implies
+from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_util import const, show_set_element
 
 SORT = None
@@ -11,7 +11,8 @@ def set_sort(sort):
 
 def get_sort():
 	global SORT
-	return SORT
+	sort = SORT
+	return sort
 	
 class SetBase():
 	"""Abstract Base Class for set instance."""
@@ -62,6 +63,9 @@ class Set(SetBase):
 	def __ge__(self, other):
 		return includes(self, other)
 
+	def __or__(self, other):
+		return disjoint(self, other)
+
 	# @return A set instance created by Z3.py.
 	def z3(self):
 		return self.s
@@ -70,30 +74,30 @@ class Set(SetBase):
 #  @param name The name of the created set.
 #  @param name The sort of the created set.
 #  @return The set instance created.
-def set(name, sort=SORT):
-	return Set(const(name, ArraySort(sort, BoolSort())), sort)
+def set(name):
+	return Set(const(name, ArraySort(get_sort(), BoolSort())))
 
 ## Creates multiple new sets.
 #  @param names The names of the created sets, separated by space character.
 #  @return a list of the set instances created.
-def sets(names, sort=SORT):
+def sets(names):
 	names = names.split(' ')
-	return [set(name, sort) for name in names]
+	return [set(name) for name in names]
 
 ## Returns a constraint that two sets are same.
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def eq(s1, s2, sort=SORT):
-	x = const('x', sort)
+def eq(s1, s2):
+	x = const('x', get_sort())
 	return ForAll(x, s1(x) == s2(x))
 
 ## Returns a constraint that two sets are same.
 # @param s1 A set that will be same as s2.
 # @param s2 A set that will be same as s1.
 # @return A constraint that two sets are same.
-def includes(s1, s2, sort=SORT):
-	x = const('x', sort)
+def includes(s1, s2):
+	x = const('x', get_sort())
 	return ForAll(x, Implies(s2(x), s1(x)))
 
 ## Returns a constraint that two sets are same.
@@ -181,18 +185,22 @@ class Complement(Set):
 class Cpl(Complement):
 	"""This is short name for Complement"""
 
-class Empty(SetBase):
+class Empty(Set):
 	"""An empty set"""
-	def __init__(self, sort=SORT):
-		self.sort = sort
+	def __init__(self):
+		self.sort = get_sort()
 
 	def has(self, x):
 		return False
 
-class Universe(SetBase):
+class Universe(Set):
 	""" An Universe set"""
-	def __init__(self, sort=SORT):
-		self.sort = sort
+	def __init__(self):
+		self.sort = get_sort()
 
 	def has(self, x):
 		return True
+
+def disjoint(s1, s2):
+	x = const('x', get_sort())
+	return Not(Exists(x, (s1*s2)(x)))

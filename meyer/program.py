@@ -88,10 +88,6 @@ class Program(ProgramBase):
 	def __init__(self, p):
 		self.p = p
 
-	#  @return A program instance created by Z3.py.
-	def z3(self):
-		return self.p
-
 	#  @param x An element that is included in Set of this program.
 	#  @return The constraint that x is included in Set of this program.
 	def set(self, x):

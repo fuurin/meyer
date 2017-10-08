@@ -1,7 +1,7 @@
 # encoding: utf-8
-from z3 import ForAll, Implies, And
-from .program import U
-from .util.z3py_util import consts
+from z3 import And
+from .util.z3py_set import includes
+from .util.z3py_rel import included, Rest
 ## @file refinement.py
 #  Module used to define the operation of refinement between two programs.
 # 
@@ -15,15 +15,11 @@ from .util.z3py_util import consts
 #  @param p1 The program that specifies (or abstracts) p2.
 #  @return The Z3 assumption used for refinement.
 def is_refinement_of(p2, p1):
-	a,b,c,d = consts("a b c d", U)
-	return	And(
-				ForAll(a, Implies(p1.set(a), p2.set(a))),
-				ForAll(b, Implies(p1.pre(b), p2.pre(b))),
-				ForAll((c,d), Implies(
-					And(p2.post(c,d), p1.pre(c)), p1.post(c,d)
-				))
-				# RelIncluded(RelRest(p2.post, p1.pre), p1.post)
-			)
+	return And(
+		includes(p2.set, p1.set),
+		includes(p2.pre, p1.pre),
+		included(Rest(p2.post, p1.pre), p1.post)
+	)
 
 ## This is short name for a relation is_refinement_of
 #  @param p2 The program that refines p1.
