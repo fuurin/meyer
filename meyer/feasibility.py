@@ -1,8 +1,6 @@
 # encoding: utf-8
-from z3 import ForAll, Exists, Implies, And, Not, Function
-from .meyer import U
-from .program import pre_, post_
-from .util.z3py_util import const, consts
+from z3 import And, Not
+
 ## @file feasibility.py
 #  Module used to define the condition of feasibility on a program.
 # 
@@ -29,14 +27,9 @@ def feasible(*progs, strong=False):
 #  @param p The program that needs to be infeasible.
 #  @param strong Let it be True if you need pre_p != dom(post_p) assumption.
 #  @return The assumption.
-def infeasible(p, strong=False):
-	return Not(feasible(p, strong))
-
-
-def skolemized_feasible(p):
-	x = const('x', U)
-	f = Function('f', U, U)
-	return	ForAll(x, Implies(
-				pre_(p)[x], 
-				post_(p)[x][f(x)]
-			))
+def infeasible(*progs, strong=False):
+	if len(progs) == 0:
+		raise Exception("feasible is receiving nothing.")
+	if len(progs) == 1:
+		return Not(is_feasible(progs[0]))
+	return [Not(is_feasible(p, strong)) for p in list(progs)]

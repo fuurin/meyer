@@ -1,8 +1,8 @@
 # encoding: utf-8
-from z3 import EnumSort, IntSort, RealSort, sat, Not
+from z3 import EnumSort, IntSort, RealSort, Not, sat
 from .util.z3py_set import set_sort as set_set_sort, show_set
 from .util.z3py_rel import set_sort as set_rel_sort
-from .util.z3py_util import evaluate, show_record_element, proof as super_proof
+from .util.z3py_util import proof as super_proof, evaluate, show_record_element
  
 ## @file meyer.py
 #  This module can be used for basics of meyer's definition.
