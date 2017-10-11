@@ -77,7 +77,7 @@ class Corestriction(Program):
 		return self.p.set(x)
 
 	def _pre(self, x):
-		return (self.p.pre() & self.p.post() << self.c)()
+		return (self.p.pre() & self.p.post() << self.c)(x)
 
 	def _post(self, x, y):
 		return And(self.p.post(x, y), self.c(y))

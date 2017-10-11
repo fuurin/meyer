@@ -20,7 +20,7 @@ def feasible(*progs, strong=False):
 	if len(progs) == 0:
 		raise Exception("feasible is receiving nothing.")
 	if len(progs) == 1:
-		return is_feasible(progs[0])
+		return is_feasible(progs[0], strong)
 	return [is_feasible(p, strong) for p in list(progs)]
 
 ## Creates the assumption of infeasibility on a program.
@@ -31,5 +31,5 @@ def infeasible(*progs, strong=False):
 	if len(progs) == 0:
 		raise Exception("feasible is receiving nothing.")
 	if len(progs) == 1:
-		return Not(is_feasible(progs[0]))
+		return Not(is_feasible(progs[0], strong))
 	return [Not(is_feasible(p, strong)) for p in list(progs)]

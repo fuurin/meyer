@@ -87,13 +87,17 @@ class Program():
 		from .feasibility import feasible
 		return feasible(self)
 
+	def __invert__(self):
+		from .feasibility import feasible
+		return feasible(self, strong=True)		
+
 	def __truediv__(self, C):
 		from .basic_constructs import Restriction
 		return Restriction(C, self)
 
 	def __floordiv__(self, C):
 		from .basic_constructs import Corestriction
-		return Corestriction(C, self)
+		return Corestriction(self, C)
 
 	def __or__(self, p):
 		from .basic_constructs import Choice
