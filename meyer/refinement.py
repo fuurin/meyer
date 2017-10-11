@@ -1,7 +1,6 @@
 # encoding: utf-8
 from z3 import And
-from .util.z3py_set import includes
-from .util.z3py_rel import included, Rest
+
 ## @file refinement.py
 #  Module used to define the operation of refinement between two programs.
 # 
@@ -16,9 +15,9 @@ from .util.z3py_rel import included, Rest
 #  @return The Z3 assumption used for refinement.
 def is_refinement_of(p2, p1):
 	return And(
-		includes(p2.set, p1.set),
-		includes(p2.pre, p1.pre),
-		included(Rest(p2.post, p1.pre), p1.post)
+		p2.set() >= p1.set(),
+		p2.pre() >= p1.pre(),
+		(p2.post() / p1.pre()) <= p1.post()
 	)
 
 ## This is short name for a relation is_refinement_of

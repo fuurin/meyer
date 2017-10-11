@@ -12,10 +12,7 @@ from .refinement import is_ref_of
 #  @param p2 The program which an implementation of is p1.
 #  @return The Z3 assumptions of the implementation operation.
 def is_implementation_of(p1, p2):
-	return	And(
-				feasible(p1),
-				is_ref_of(p1,p2)
-			)
+	return And(feasible(p1), is_ref_of(p1,p2))
 
 ## This is short name for a relation is_implementation of
 #  @param p1 The program that is the implementation of p2.

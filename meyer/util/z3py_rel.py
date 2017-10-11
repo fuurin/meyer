@@ -1,5 +1,5 @@
 # encoding: utf-8
-from abc import ABCMeta, abstractmethod
+import inspect
 from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_set import Set
 from .z3py_util import const, unveil
@@ -23,15 +23,7 @@ def get_sort_ran():
 	sort_ran = SORT_RAN
 	return sort_ran
 
-class RelationBase():
-	"""Abstract Base Class for relation instance."""
-	__metaclass__ = ABCMeta
-
-	@abstractmethod
-	def has(self, x, y):
-		pass
-
-class Relation(RelationBase):
+class Relation():
 	"""Base class for relation instance."""
 	
 	# @param r A relation instance created by Z3.py.
@@ -78,7 +70,7 @@ class Relation(RelationBase):
 		return includes(self, other)
 
 	def has(self, x, y):
-		return self.r[x][y]
+		return self.r(x, y) if inspect.ismethod(self.r) else self.r[x][y]
 
 	def z3(self):
 		return self.r
@@ -139,7 +131,7 @@ def included(r1, r2):
 #  @param solver The solver in which the set is.
 #  @param set The set that need to be printed.
 def show_set(solver, rel):
-	if isinstance(rel, RelationBase):
+	if isinstance(rel, Relation):
 		rel = rel.z3()
 	if not str(rel)[1] == '!':
 		unveil(solver, rel)

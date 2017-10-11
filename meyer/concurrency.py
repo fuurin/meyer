@@ -8,13 +8,13 @@ class AtomicConcurrency(Program):
 		part2 = Comp(p2, p1)
 		self.definition = Choi(part1, part2)
 	
-	def set(self, x):
+	def _set(self, x):
 		return self.definition.set(x)
 
-	def pre(self, x):
+	def _pre(self, x):
 		return self.definition.pre(x)
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		return self.definition.post(x, y)
 
 class Atom(AtomicConcurrency):
@@ -26,13 +26,13 @@ class NonAtomicConcurrency(Program):
 		right = Comp(p1, Atom(p2, q))
 		self.definition = Choi(left, right)
 	
-	def set(self, x):
+	def _set(self, x):
 		return self.definition.set(x)
 
-	def pre(self, x):
+	def _pre(self, x):
 		return self.definition.pre(x)
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		return self.definition.post(x, y)
 
 class NAtom(NonAtomicConcurrency):

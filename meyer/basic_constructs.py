@@ -8,13 +8,13 @@ class Choice(Program):
 	def __init__(self, *p):
 		self.p = list(p)
 
-	def set(self, x):
+	def _set(self, x):
 		return Or([p.set(x) for p in self.p])
 
-	def pre(self, x):
+	def _pre(self, x):
 		return Or([p.pre(x) for p in self.p])
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		return Or([p.post(x, y) for p in self.p])
 
 
@@ -29,16 +29,16 @@ class Composition(Program):
 		self.p1 = p1
 		self.p2 = p2
 
-	def set(self, x):
+	def _set(self, x):
 		return Or(self.p1.set(x), self.p2.set(x))
 
-	def pre(self, x):
+	def _pre(self, x):
 		y = const('y', U)
 		return Exists(y, And(
 			self.p1.pre(x), self.p1.post(x, y), self.p2.pre(y)
 		))
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		z = const('z', U)
 		return Exists(z, And(
 			self.p1.post(x, z), self.p2.pre(z), self.p2.post(z, y)
@@ -55,15 +55,15 @@ class Restriction(Program):
 		self.c = c
 		self.p = p
 
-	def set(self, x):
+	def _set(self, x):
 		return self.p.set(x)
 
-	def pre(self, x):
+	def _pre(self, x):
 		# return self.p.pre(x) # This causes counter example in P6
 		# return And(self.p.pre(x)) # interesting result; this causes unknown
 		return And(self.p.pre(x), self.c(x))
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		return And(self.p.post(x, y), self.c(x))
 
 class Rest(Restriction):
@@ -80,16 +80,16 @@ class Corestriction(Program):
 		self.p = p
 		self.c = c
 
-	def set(self, x):
+	def _set(self, x):
 		return self.p.set(x)
 
-	def pre(self, x):
+	def _pre(self, x):
 		y = const('y', U)
 		return Exists(y, And(
 			self.p.pre(x), self.p.post(x, y), self.c(y)
 		))
 
-	def post(self, x, y):
+	def _post(self, x, y):
 		return And(self.p.post(x, y), self.c(y))
 
 class Corest(Corestriction):

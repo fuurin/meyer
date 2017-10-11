@@ -1,7 +1,6 @@
 # encoding: utf-8
 from .special_programs import Skip
 from .basic_constructs import Choi, Comp, Rest, Corest
-from .util.z3py_set import Cpl
 
 LOOP_NUM = 10
 
@@ -21,7 +20,7 @@ def arb_rep(p):
 	return arbitrary_repetition(p)
 
 def while_loop(a, C, b):
-	return Corest(Comp(a, arb_rep(Rest(Cpl(C), b))), C)
+	return Corest(Comp(a, arb_rep(Rest(-C, b))), C)
 
 def wloop(a, C, b):
 	return while_loop(a, C, b)

@@ -1,5 +1,5 @@
 # encoding: utf-8
-from abc import ABCMeta, abstractmethod
+import inspect
 from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_util import const, show_set_element
 
@@ -13,18 +13,8 @@ def get_sort():
 	global SORT
 	sort = SORT
 	return sort
-	
-class SetBase():
-	"""Abstract Base Class for set instance."""
-	__metaclass__ = ABCMeta
 
-	# @param x An element that is included in this set.
-	# @return The constraint that x is included in this set.
-	@abstractmethod
-	def has(self, x):
-		pass
-
-class Set(SetBase):
+class Set():
 	"""Base class for set instance."""
 	
 	# @param p A set instance created by Z3.py.
@@ -33,11 +23,6 @@ class Set(SetBase):
 
 	def __call__(self, x):
 		return self.has(x)
-
-	# @param x An element that is included in this set.
-	# @return The constraint that x is included in this set.
-	def has(self, x):
-		return self.s[x]
 
 	def __add__(self, other):
 		return Union(self, other)
@@ -65,6 +50,11 @@ class Set(SetBase):
 
 	def __or__(self, other):
 		return disjoint(self, other)
+
+	# @param x An element that is included in this set.
+	# @return The constraint that x is included in this set.
+	def has(self, x):
+		return self.s(x) if inspect.ismethod(self.s) else self.s[x]
 
 	# @return A set instance created by Z3.py.
 	def z3(self):
@@ -112,7 +102,7 @@ def included(s1, s2):
 #  @param solver The solver in which the set is.
 #  @param set The set that need to be printed.
 def show_set(solver, set):
-	if isinstance(set, SetBase):
+	if isinstance(set, Set):
 		set = set.z3()
 	if not str(set)[1] == '!':
 		show_set_element(solver, set)

@@ -1,8 +1,6 @@
 # encoding: utf-8
-from .util.z3py_rel import Img
-
 def is_invariant_of(I, p):
-	return Img(p.post, I * p.dom) <= I
+	return p.post() >> (I * p.dom()) <= I
 
 def is_ivr_of(I, p):
 	return is_invariant_of(I, p)

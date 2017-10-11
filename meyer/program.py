@@ -1,11 +1,10 @@
 # encoding: utf-8
-from abc import ABCMeta, abstractmethod
 from z3 import Datatype, BoolVal
 from z3 import EnumSort, BoolSort, IntSort, RealSort, ArraySort
 from z3 import ForAll, Exists, And, Not, Implies
 from z3 import sat
-from .util.z3py_set import set_sort as set_set_sort, show_set
-from .util.z3py_rel import set_sort as set_rel_sort
+from .util.z3py_set import Set, set_sort as set_set_sort, show_set
+from .util.z3py_rel import Rel, set_sort as set_rel_sort
 from .util.z3py_util import const, consts, show_record_element
 from .util.z3py_util import evaluate, proof as super_proof
  
@@ -34,55 +33,7 @@ set_ = PROG.set
 pre_ = PROG.pre
 post_ = PROG.post
 
-class ProgramBase():
-	"""Abstract Base Class for program instance."""
-	__metaclass__ = ABCMeta
-
-	#  @param x An element that is included in Set of this program.
-	#  @return The constraint that x is included in Set of this program.
-	@abstractmethod
-	def set(self, x):
-		pass
-	
-	#  @param x An element that is included in Pre of this program.
-	#  @return The constraint that x is included in Set of this program.
-	@abstractmethod
-	def pre(self, x):
-		pass
-
-	#  @param x An element that is included in post of this program.
-	#  @return The constraint that x is included in Set of this program.
-	@abstractmethod
-	def post(self, x, y):
-		pass
-
-	#  @param x An element that is included in domain of this program.
-	#  @return The constraint that x is included in Set of this program.
-	@abstractmethod
-	def dom(self, x):
-		pass
-
-	#  @param x An element that is included in range of this program.
-	#  @return The constraint that x is included in Set of this program.
-	@abstractmethod
-	def ran(self, x):
-		pass
-
-	#  @param x An element that is included in domain of post of this program.
-	#  @return The constraint that x is included in domain of post of this program.
-	@abstractmethod
-	def dom_post(self, x):
-		pass
-
-	#  @param x An element that is included in range of post of this program.
-	#  @return The constraint that x is included in range of post of this program.
-	@abstractmethod
-	def ran_post(self, x):
-		pass
-
-class Program(ProgramBase):
-	__metaclass__ = ABCMeta
-	
+class Program():
 	"""Base class for Program instance."""
 	#  @param p A program instance created by Z3.py.
 	def __init__(self, p):
@@ -90,32 +41,58 @@ class Program(ProgramBase):
 
 	#  @param x An element that is included in Set of this program.
 	#  @return The constraint that x is included in Set of this program.
-	def set(self, x):
+	def set(self, x=None):
+		return Set(self._set) if x == None else self._set(x)
+
+	def _set(self, x):
 		return set_(self.p)[x]
-	
+
 	#  @param x An element that is included in Pre of this program.
-	#  @return The constraint that x is included in Set of this program.
-	def pre(self, x):
+	#  @return The constraint that x is included in Pre of this program.
+	def pre(self, x=None):
+		return Set(self._pre) if x == None else self._pre(x) 
+
+	def _pre(self, x):
 		return pre_(self.p)[x]
 	
 	#  @param x An element that is included in post of this program.
 	#  @param y An element that is included in the range of this program.
 	#  @return The constraint that x is included in Set of this program.
-	def post(self, x, y):
+	def post(self, x=None, y=None):
+		return Rel(self._post) if x == None and y == None else self._post(x, y) 
+
+	def _post(self, x, y):
 		return post_(self.p)[x][y]
 
-	def dom(self, x):
+	#  @param x An element that is included in the domain of this program.
+	#  @return The constraint that x is included in the domain of this program.
+	def dom(self, x=None):
 		return self.pre(x)
 
-	def ran(self, y):
+	#  @param y An element that is included in the range of this program.
+	#  @return The constraint that x is included in the range of this program.
+	def ran(self, y=None):
+		return Set(self._ran) if y == None else self._ran(y) 
+		
+	def _ran(self, y):
 		x = const('x', U)
 		return Exists(x, And(self.dom(x), self.post(x, y)))
 	
-	def dom_post(self, x):
+	#  @param x An element that is included in the domain of post of this program.
+	#  @return The constraint that x is included in the domain of post of this program.
+	def dom_post(self, x=None):
+		return Set(self._dom_post) if x == None else self._dom_post(x) 
+
+	def _dom_post(self, x):
 		y = const('y', U)
 		return Exists(y, self.post(x, y))
 
-	def ran_post(self, y):
+	#  @param y An element that is included in the range of post of this program.
+	#  @return The constraint that x is included in the range of post of this program.
+	def ran_post(self, y=None):
+		return Set(self._ran_post) if y == None else self._ran_post(y) 
+	
+	def _ran_post(self, y):
 		x = const('x', U)
 		return Exists(x, self.post(x, y))
 	
@@ -124,14 +101,6 @@ class Program(ProgramBase):
 #  @return The constraints linked to a program.
 def prog_constraint(prog):
 	x,y,z = consts('x y z', U)
-	# 一部の証明がどちらを使うかによりUnknownになる
-	# return 	ForAll([x,y], And(
-	# 			Implies(pre_(prog)[x], set_(prog)[x]),
-	# 			Implies(
-	# 				post_(prog)[x][y], 
-	# 				And(set_(prog)[x], set_(prog)[y])
-	# 			)
-	# 		))
 	return 	ForAll([x,y,z], And(
 				Implies(pre_(prog)[z], set_(prog)[z]),
 				Implies(
@@ -170,7 +139,7 @@ def progs(solver, names):
 #  @param solver The solver in which the program is.
 #  @param prog The program that needs to be printed.
 def show_prog(solver, prog):
-	if isinstance(prog, ProgramBase):
+	if isinstance(prog, Program):
 		show_record_element(solver, prog.z3(), set_)
 		show_record_element(solver, prog.z3(), pre_)
 		show_record_element(solver, prog.z3(), post_)

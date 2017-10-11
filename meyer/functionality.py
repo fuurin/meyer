@@ -1,7 +1,7 @@
 # encoding: utf-8
 from z3 import And, Not
 from .util.z3py_set import set
-from .util.z3py_rel import Img
+
 ## @file functionality.py
 #  Module used to define the condition of functionality on a program.
 # 
@@ -12,7 +12,7 @@ from .util.z3py_rel import Img
 #  @return The assumption.
 def functional(p):
 	c = set('c')
-	return	And(c <= p.set, c | Img(p.post, c))
+	return	And(c <= p.set, c | (p.post() >> c))
 
 ## Creates the assumption of an imperative program.
 #  @param p The program that needs to be imperative.
