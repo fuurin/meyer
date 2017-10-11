@@ -60,4 +60,4 @@ def eq_ran(p1, p2):
 #  @param p2 The second program.
 #  @return The assumption of equality between two postSconditions of feasible programs.
 def eq_actual_post(p1, p2):
-	return (p1.post() / p1.pre()) == (p2.post() / p2.pre())
+	return p1.post() / p1.pre() == p2.post() / p2.pre()

@@ -1,25 +1,14 @@
-# encoding: utf-8
-from z3 import Datatype, BoolVal
-from z3 import EnumSort, BoolSort, IntSort, RealSort, ArraySort
-from z3 import ForAll, Exists, And, Not, Implies
-from z3 import sat
-from .util.z3py_set import Set, set_sort as set_set_sort, show_set
-from .util.z3py_rel import Rel, set_sort as set_rel_sort
-from .util.z3py_util import const, consts, show_record_element
-from .util.z3py_util import evaluate, proof as super_proof
- 
+from z3 import Datatype, BoolSort, IntSort, ArraySort, And
+from .meyer import U
+from .util.z3py_set import Set
+from .util.z3py_rel import Rel
+from .util.z3py_util import const
+
+
 ## @file program.py
-#  This module can be used to define and create programs according to meyer's definition.
+#  This module can be used for definition of specification/program instance
 #
-#  It defines the new Datatype called Prog, that is composed of a set, a precondition and a postcondition, and operations that can be useful when working with those programs.
-
-U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
-# U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,100)])
-# U = IntSort()
-# U = RealSort()
-
-set_set_sort(U)
-set_rel_sort(U, U)
+#
 
 SET = ArraySort(U, BoolSort())
 # OOPSet = ArraySort(IntSort(), ArraySort(U, BoolSort()))
@@ -42,7 +31,7 @@ class Program():
 	#  @param x An element that is included in Set of this program.
 	#  @return The constraint that x is included in Set of this program.
 	def set(self, x=None):
-		return Set(self._set) if x == None else self._set(x)
+		return Set(self._set) if x is None else self._set(x)
 
 	def _set(self, x):
 		return set_(self.p)[x]
@@ -50,7 +39,7 @@ class Program():
 	#  @param x An element that is included in Pre of this program.
 	#  @return The constraint that x is included in Pre of this program.
 	def pre(self, x=None):
-		return Set(self._pre) if x == None else self._pre(x) 
+		return Set(self._pre) if x is None else self._pre(x) 
 
 	def _pre(self, x):
 		return pre_(self.p)[x]
@@ -59,7 +48,7 @@ class Program():
 	#  @param y An element that is included in the range of this program.
 	#  @return The constraint that x is included in Set of this program.
 	def post(self, x=None, y=None):
-		return Rel(self._post) if x == None and y == None else self._post(x, y) 
+		return Rel(self._post) if x is None and y is None else self._post(x, y) 
 
 	def _post(self, x, y):
 		return post_(self.p)[x][y]
@@ -72,42 +61,73 @@ class Program():
 	#  @param y An element that is included in the range of this program.
 	#  @return The constraint that x is included in the range of this program.
 	def ran(self, y=None):
-		return Set(self._ran) if y == None else self._ran(y) 
+		return Set(self._ran) if y is None else self._ran(y) 
 		
 	def _ran(self, y):
-		x = const('x', U)
-		return Exists(x, And(self.dom(x), self.post(x, y)))
-	
+		return (self.post() >> self.dom())(y)
+		
 	#  @param x An element that is included in the domain of post of this program.
 	#  @return The constraint that x is included in the domain of post of this program.
 	def dom_post(self, x=None):
-		return Set(self._dom_post) if x == None else self._dom_post(x) 
+		return Set(self._dom_post) if x is None else self._dom_post(x) 
 
 	def _dom_post(self, x):
 		y = const('y', U)
-		return Exists(y, self.post(x, y))
+		return self.post().dom(x)
 
 	#  @param y An element that is included in the range of post of this program.
 	#  @return The constraint that x is included in the range of post of this program.
 	def ran_post(self, y=None):
-		return Set(self._ran_post) if y == None else self._ran_post(y) 
+		return Set(self._ran_post) if y is None else self._ran_post(y) 
 	
 	def _ran_post(self, y):
-		x = const('x', U)
-		return Exists(x, self.post(x, y))
+		return self.post().ran(y)
+
+	def __pos__(self):
+		from .feasibility import feasible
+		return feasible(self)
+
+	def __truediv__(self, C):
+		from .basic_constructs import Restriction
+		return Restriction(C, self)
+
+	def __floordiv__(self, C):
+		from .basic_constructs import Corestriction
+		return Corestriction(C, self)
+
+	def __or__(self, p):
+		from .basic_constructs import Choice
+		return Choice(self, p)
+
+	def __xor__(self, p):
+		from .basic_constructs import Composition
+		return Composition(self, p)
+
+	def __lt__(self, p):
+		from .implementation import is_implementation_of
+		return is_implementation_of(self, p)
+
+	def __gt__(self, p):
+		from .implementation import is_abstract_of
+		return is_abstract_of(self, p)
+
+	def __le__(self, p):
+		from .refinement import is_refinement_of
+		return is_refinement_of(self, p)
+
+	def __ge__(self, p):
+		from .refinement import is_abstract_of
+		return is_abstract_of(self, p)
 	
+	def __eq__(self, p):
+		from .equivalence import equivalent
+		return equivalent(self, p)
+
 ## Use prog/progs _constraint to Prog constants.
 #  @param prog The prog that needs constraints.
 #  @return The constraints linked to a program.
-def prog_constraint(prog):
-	x,y,z = consts('x y z', U)
-	return 	ForAll([x,y,z], And(
-				Implies(pre_(prog)[z], set_(prog)[z]),
-				Implies(
-					post_(prog)[x][y], 
-					And(set_(prog)[x], set_(prog)[y])
-				)
-			))
+def prog_constraint(p):
+	return And(p.pre() <= p.set(), p.post() <= p.set() ** p.set())
 
 ## Maps the constraints of progs to the progs.
 #  @param progs A list of progs that is used.
@@ -120,9 +140,9 @@ def progs_constraint(*progs):
 #  @param name The name of the created program.
 #  @return The program instance created.
 def prog(solver, name):
-	p = const(name, PROG)
+	p = Program(const(name, PROG))
 	solver.add(prog_constraint(p))
-	return Program(p)
+	return p
 
 ## Creates multiple new programs, adding the constraints to the solver.
 #  @param solver The solver in which the program will be added.
@@ -130,63 +150,4 @@ def prog(solver, name):
 #  @return The map of the program instances created.
 def progs(solver, names):
 	ps = [prog(solver, name) for name in names.split(' ')]
-	if len(ps) == 1:
-		return ps[0]
-	else:
-		return ps
-
-## Prints a program
-#  @param solver The solver in which the program is.
-#  @param prog The program that needs to be printed.
-def show_prog(solver, prog):
-	if isinstance(prog, Program):
-		show_record_element(solver, prog.z3(), set_)
-		show_record_element(solver, prog.z3(), pre_)
-		show_record_element(solver, prog.z3(), post_)
-	else:
-		show_record_element(solver, prog, set_)
-		show_record_element(solver, prog, pre_)
-		show_record_element(solver, prog, post_)
-
-## Returns a string which contains informations about the universe used.
-#  @return The string which contains the universe.
-def universe_state():
-	if hasattr(U, 'num_constructors'):
-		num = str(U.num_constructors())
-		return 'Universe = U, has ' + num + ' element(s)'
-	return 'Universe = ' + str(U)
-	
-## Starts the proof of a theorem thanks to its solver
-#  @param solver The solver which contains all the assuptions.
-#  @param title The title of the theorem.
-#  @param reset Boolean that indicates if the solver will be reset after the proof, true is reset.
-#  @return The result (sat, unsat or unknown) of the proof.
-def proof(solver, title=None, reset=True):
-	if title != None:
-		title = title + '\n' + universe_state()
-	else:
-		title = universe_state()
-	result = super_proof(solver, title, False)
-	if result == sat:
-		is_set = lambda elt: elt.range() == SET
-		sets = filter(is_set, solver.model())
-		for s in sets:
-			show_set(solver, s)
-		is_prog = lambda elm: elm.range() == PROG
-		progs = filter(is_prog, solver.model())
-		for p in progs:
-			show_prog(solver, p)
-	if reset:
-		solver.reset()
-	return result
-
-## Proof of the conclusion which will be nagated and added to the solver.
-#  @param solver The solver which contains all the premises.
-#  @param conclusion The conclusion constraint that you'd like to proof.
-#  @param title The title of the theorem.
-#  @param reset Boolean that indicates if the solver will be reset after the proof, true is reset.
-#  @return The result (sat, unsat or unknown) of the proof.
-def conclude(solver, conclusion, title=None, reset=True):
-	solver.add(Not(conclusion))
-	# import pdb; pdb.set_trace()
-	proof(solver, title, reset)
+	return ps[0] if len(ps) == 1 else ps

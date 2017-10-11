@@ -1,6 +1,7 @@
 # encoding: utf-8
 from z3 import ForAll, Exists, Implies, And, Not, Function
-from .program import U, pre_, post_
+from .meyer import U
+from .program import pre_, post_
 from .util.z3py_util import const, consts
 ## @file feasibility.py
 #  Module used to define the condition of feasibility on a program.

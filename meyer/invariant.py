@@ -1,6 +1,6 @@
 # encoding: utf-8
 def is_invariant_of(I, p):
-	return p.post() >> (I * p.dom()) <= I
+	return p.post() >> (I & p.dom()) <= I
 
 def is_ivr_of(I, p):
 	return is_invariant_of(I, p)

@@ -1,7 +1,6 @@
 # encoding: utf-8
-from z3 import Exists, Or, And
-from .program import U, Program
-from .util.z3py_util import const
+from z3 import Or, And
+from .program import Program
 
 class Choice(Program):
 	"""Choice, performs like p1 or p2 or ..."""
@@ -33,16 +32,10 @@ class Composition(Program):
 		return Or(self.p1.set(x), self.p2.set(x))
 
 	def _pre(self, x):
-		y = const('y', U)
-		return Exists(y, And(
-			self.p1.pre(x), self.p1.post(x, y), self.p2.pre(y)
-		))
+		return (self.p1.pre() & self.p1.post() << self.p2.pre())(x) 
 
 	def _post(self, x, y):
-		z = const('z', U)
-		return Exists(z, And(
-			self.p1.post(x, z), self.p2.pre(z), self.p2.post(z, y)
-		))
+		return (self.p1.post() // self.p2.pre() ^ self.p2.post())(x, y)
 
 class Comp(Composition):
 	"""This is short name for Composition"""
@@ -84,10 +77,7 @@ class Corestriction(Program):
 		return self.p.set(x)
 
 	def _pre(self, x):
-		y = const('y', U)
-		return Exists(y, And(
-			self.p.pre(x), self.p.post(x, y), self.c(y)
-		))
+		return (self.p.pre() & self.p.post() << self.c)()
 
 	def _post(self, x, y):
 		return And(self.p.post(x, y), self.c(y))

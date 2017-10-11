@@ -1,6 +1,5 @@
 # encoding: utf-8
-from z3 import ForAll
-from .program import U, prog, Program
+from .program import prog, Program
 from .util.z3py_set import Universe
 
 ## @file special_program.py

@@ -1,10 +1,10 @@
 from .util.z3py_set import Empty, Universe
 
 def And(s1, s2):
-	return s1 * s2
+	return s1 & s2
 
 def Or(s1, s2):
-	return s1 + s2
+	return s1 | s2
 
 def Not(s):
 	return -s

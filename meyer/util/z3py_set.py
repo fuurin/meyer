@@ -24,17 +24,21 @@ class Set():
 	def __call__(self, x):
 		return self.has(x)
 
-	def __add__(self, other):
-		return Union(self, other)
+	def __neg__(self):
+		return Complement(self)
+
+	def __pow__(self, other):
+		from .z3py_rel import Combination
+		return Combination(self, other)
 
 	def __sub__(self, other):
 		return Subtraction(self, other)
 
-	def __mul__(self, other):
+	def __and__(self, other):
 		return Intersection(self, other)
-
-	def __neg__(self):
-		return Complement(self)
+	
+	def __or__(self, other):
+		return Union(self, other)
 
 	def __eq__(self, other):
 		return eq(self, other)
@@ -48,7 +52,7 @@ class Set():
 	def __ge__(self, other):
 		return includes(self, other)
 
-	def __or__(self, other):
+	def __ne__(self, other):
 		return disjoint(self, other)
 
 	# @param x An element that is included in this set.

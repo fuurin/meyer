@@ -33,29 +33,32 @@ class Relation():
 	def __call__(self, x, y):
 		return self.has(x, y)
 
-	def __add__(self, other):
-		return Union(self, other)
-
-	def __sub__(self, other):
-		return Subtraction(self, other)
-
-	def __mul__(self, other):
-		return Intersection(self, other)
-
 	def __neg__(self):
 		return Complement(self)
 
 	def __truediv__(self, other):
 		return Restriction(self, other)
 
-	def __mod__(self, other):
+	def __floordiv__(self, other):
 		return Corestriction(self, other)
+
+	def __sub__(self, other):
+		return Subtraction(self, other)
 
 	def __lshift__(self, other):
 		return InverseImage(self, other)
 
 	def __rshift__(self, other):
 		return Image(self, other)
+
+	def __and__(self, other):
+		return Union(self, other)
+
+	def __or__(self, other):
+		return Intersection(self, other)
+
+	def __xor__(self, other):
+		return Composition(self, other)
 
 	def __eq__(self, other):
 		return eq(self, other)
@@ -68,6 +71,14 @@ class Relation():
 
 	def __ge__(self, other):
 		return includes(self, other)
+
+	def dom(self, x):
+		y = const('x', get_sort_ran())
+		return Exists(y, self.r(x, y))
+
+	def ran(self, y):
+		x = const('x', get_sort_dom())
+		return Exists(x, self.r(x, y))
 
 	def has(self, x, y):
 		return self.r(x, y) if inspect.ismethod(self.r) else self.r[x][y]
@@ -156,8 +167,6 @@ class Intersection(Rel):
 		self.r1 = r1
 		self.r2 = r2
 
-	# @param x An element that is included in this Intersection of sets.
-	# @return The constraint that x is included in this set.
 	def has(self, x, y):
 		return And(self.r1(x, y), self.r2(x, y))
 
@@ -174,8 +183,6 @@ class Subtraction(Rel):
 		self.r1 = r1
 		self.r2 = r2
 
-	# @param x An element that is included in this Intersection of sets.
-	# @return The constraint that x is included in this set.
 	def has(self, x, y):
 		return And(self.s1(x, y), Not(self.s2(x, y)))
 
@@ -192,8 +199,6 @@ class Restriction(Rel):
 		self.r = r
 		self.s = s
 
-	# @param x An element that is included in this Intersection of sets.
-	# @return The constraint that x is included in this set.
 	def has(self, x, y):
 		return And(self.r(x, y), self.s(x))
 
@@ -210,8 +215,6 @@ class Corestriction(Rel):
 		self.r = r
 		self.s = s
 
-	# @param x An element that is included in this Intersection of sets.
-	# @return The constraint that x is included in this set.
 	def has(self, x, y):
 		return And(self.r(x, y), self.s(y))
 
@@ -221,6 +224,23 @@ class Corestriction(Rel):
 class Corest(Corestriction):
 	"""This is short for Corestriction"""
 
+class Composition(Relation):
+	"""Composition for relation instances. r;s (= s o r)"""
+	
+	def __init__(self, r, s):
+		self.r = r
+		self.s = s
+
+	def has(self, x, y):
+		a = const('a', get_sort_ran())
+		return Exists(a, And(self.r(x, a), self.s(a, y)))
+
+	def z3(self):
+		return (self.r, self.s)
+
+class Comp(Composition):
+	"""This is short for Composition"""
+
 class Image(Set):
 	"""Image for a relation instance and a set instance."""
 	
@@ -228,8 +248,6 @@ class Image(Set):
 		self.r = r
 		self.s = s
 
-	# @param y An element that is included in this Image of the relation.
-	# @return The constraint that x is included in this set.
 	def has(self, y):
 		x = const('x', get_sort_dom())
 		return Exists(x, And(self.r(x, y), self.s(x)))
@@ -247,8 +265,6 @@ class InverseImage(Set):
 		self.r = r
 		self.s = s
 
-	# @param x An element that is included in this Inverse image of the relation.
-	# @return The constraint that x is included in this set.
 	def has(self, x):
 		y = const('y', get_sort_ran())
 		return Exists(y, And(self.r(x, y), self.s(y)))
@@ -262,17 +278,30 @@ class Inv(InverseImage):
 class Complement(Rel):
 	"""Complement for a set instance."""
 	
-	# @param p A set instance created by Z3.py.
 	def __init__(self, r):
 		self.r = r
 
-	# @param x An element that is NOT included in this set.
-	# @return The constraint that x is NOT included in this set.
 	def has(self, x, y):
 		return Not(self.r(x, y))
 
 class Cpl(Complement):
 	"""This is short name for Complement"""
+
+class Combination(Rel):
+	"""Combination made of two set instances."""
+	
+	def __init__(self, s1, s2):
+		self.s1 = s1
+		self.s2 = s2
+
+	def has(self, x, y):
+		return And(self.s1(x), self.s2(y))
+
+	def z3(self):
+		return (self.s1, self.s2)
+
+class Comb(Combination):
+	"""This is short for Combination"""
 
 class Empty(Relation):
 	"""An empty set"""
