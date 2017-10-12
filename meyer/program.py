@@ -99,6 +99,10 @@ class Program():
 		from .basic_constructs import Corestriction
 		return Corestriction(self, C)
 
+	def __and__(self, p):
+		from .concurrency import AtomicConcurrency
+		return AtomicConcurrency(self, p)
+
 	def __or__(self, p):
 		from .basic_constructs import Choice
 		return Choice(self, p)

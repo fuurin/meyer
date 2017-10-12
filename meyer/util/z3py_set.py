@@ -197,4 +197,4 @@ class Universe(Set):
 
 def disjoint(s1, s2):
 	x = const('x', get_sort())
-	return Not(Exists(x, (s1*s2)(x)))
+	return Not(Exists(x, (s1 & s2)(x)))
