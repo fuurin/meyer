@@ -1,5 +1,5 @@
 # encoding: utf-8
-from z3 import Datatype, BoolSort, IntSort, ArraySort, And
+from z3 import Datatype, BoolSort, IntSort, ArraySort, And, Not
 from .meyer import U
 from .util.z3py_set import Set
 from .util.z3py_rel import Rel
@@ -132,11 +132,14 @@ class Program():
 		from .equivalence import equivalent
 		return equivalent(self, p)
 
+	def __ne__(self, p):
+		return Not(self.__eq__(self, p))
+
 ## Use prog/progs _constraint to Prog constants.
 #  @param prog The prog that needs constraints.
 #  @return The constraints linked to a program.
 def prog_constraint(p):
-	return And(p.pre() <= p.set(), p.post() <= p.set() ** p.set())
+	return And(p.pre() <= p.set(), p.post() <= p.set() ^ p.set())
 
 ## Maps the constraints of progs to the progs.
 #  @param progs A list of progs that is used.

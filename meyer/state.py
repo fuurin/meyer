@@ -13,4 +13,4 @@ def irrelevant(s, post):
 
 def relevant(s, post):
 	s1, s2 = consts('s1 s2', U)
-	return Exists([s1, s2], Not(post(s, s1) == post(s, s2)))
+	return Exists([s1, s2], post(s, s1) != post(s, s2))

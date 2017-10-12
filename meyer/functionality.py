@@ -12,7 +12,7 @@ from .util.z3py_set import set
 #  @return The assumption.
 def functional(p):
 	c = set('c')
-	return	And(c <= p.set, c != p.post() >> c)
+	return	And(c <= p.set, c ** (p.post() >> c))
 
 ## Creates the assumption of an imperative program.
 #  @param p The program that needs to be imperative.

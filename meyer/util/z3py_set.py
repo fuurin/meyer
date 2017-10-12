@@ -28,8 +28,7 @@ class Set():
 		return Complement(self)
 
 	def __pow__(self, other):
-		from .z3py_rel import Combination
-		return Combination(self, other)
+		return disjoint(self, other)
 
 	def __sub__(self, other):
 		return Subtraction(self, other)
@@ -37,6 +36,10 @@ class Set():
 	def __and__(self, other):
 		return Intersection(self, other)
 	
+	def __xor__(self, other):
+		from .z3py_rel import Combination
+		return Combination(self, other)
+
 	def __or__(self, other):
 		return Union(self, other)
 
@@ -53,7 +56,7 @@ class Set():
 		return includes(self, other)
 
 	def __ne__(self, other):
-		return disjoint(self, other)
+		return Not(self.__eq__(self, other))
 
 	# @param x An element that is included in this set.
 	# @return The constraint that x is included in this set.

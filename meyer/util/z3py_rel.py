@@ -72,6 +72,9 @@ class Relation():
 	def __ge__(self, other):
 		return includes(self, other)
 
+	def __ne__(self, other):
+		return Not(self.__eq__(self, other))
+
 	def dom(self, x=None):
 		return Set(self._dom) if x is None else self._dom(x)
 
