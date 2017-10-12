@@ -72,13 +72,19 @@ class Relation():
 	def __ge__(self, other):
 		return includes(self, other)
 
-	def dom(self, x):
-		y = const('x', get_sort_ran())
-		return Exists(y, self.r(x, y))
+	def dom(self, x=None):
+		return Set(self._dom) if x is None else self._dom(x)
 
-	def ran(self, y):
+	def _dom(self, x):
+		y = const('x', get_sort_ran())
+		return Exists(y, self.has(x, y))
+
+	def ran(self, y=None):
+		return Set(self._ran) if y is None else self._ran(x)
+	
+	def _ran(self, y):
 		x = const('x', get_sort_dom())
-		return Exists(x, self.r(x, y))
+		return Exists(x, self.has(x, y))
 
 	def has(self, x, y):
 		return self.r(x, y) if inspect.ismethod(self.r) else self.r[x][y]
@@ -184,7 +190,7 @@ class Subtraction(Rel):
 		self.r2 = r2
 
 	def has(self, x, y):
-		return And(self.s1(x, y), Not(self.s2(x, y)))
+		return And(self.r1(x, y), Not(self.r2(x, y)))
 
 	def z3(self):
 		return (self.r1, self.r2)

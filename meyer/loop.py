@@ -1,6 +1,7 @@
 # encoding: utf-8
 from .special_programs import Skip
 from .basic_constructs import Choi
+from .util.z3py_rel import well_founded
 
 LOOP_NUM = 10
 
@@ -24,3 +25,6 @@ def while_loop(a, C, b):
 
 def wloop(a, C, b):
 	return while_loop(a, C, b)
+
+def loop_variant_of(a, C, b):
+	print('loop invariant: under construction')

@@ -1,6 +1,6 @@
 # encoding: utf-8
 from .program import prog, Program
-from .util.z3py_set import Universe
+from .util.z3py_set import Universe, Empty
 
 ## @file special_program.py
 #  Module used to define special programs according to meyer's article.

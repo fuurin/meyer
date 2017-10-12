@@ -1,4 +1,5 @@
 from .util.z3py_set import Empty, Universe
+from .util.z3py_rel import Empty as RelEmpty, Universe as RelUniverse
 
 def And(s1, s2):
 	return s1 & s2
@@ -17,3 +18,9 @@ def true():
 
 def false():
 	return Empty()
+
+def havoc():
+	return RelUniverse()
+
+def fail():
+	return RelEmpty()

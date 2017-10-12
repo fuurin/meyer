@@ -1,3 +1,4 @@
+# encoding: utf-8
 from z3 import Datatype, BoolSort, IntSort, ArraySort, And
 from .meyer import U
 from .util.z3py_set import Set
@@ -116,8 +117,8 @@ class Program():
 		return is_implementation_of(self, p)
 
 	def __gt__(self, p):
-		from .implementation import is_abstract_of
-		return is_abstract_of(self, p)
+		from .implementation import is_contract_of
+		return is_contract_of(self, p)
 
 	def __le__(self, p):
 		from .refinement import is_refinement_of
