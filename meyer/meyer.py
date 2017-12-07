@@ -14,8 +14,12 @@ U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
 # U = IntSort()
 # U = RealSort()
 
-set_set_sort(U)
-set_rel_sort(U, U)
+## Sets universe state u to set module and bin-relation module.
+def set_universe_state(u):
+	global U
+	set_set_sort(u)
+	set_rel_sort(u, u)
+	U = u
 
 ## Returns a string which contains informations about the universe used.
 #  @return The string which contains the universe.
@@ -24,6 +28,8 @@ def universe_state():
 		num = str(U.num_constructors())
 		return 'Universe = U, has ' + num + ' element(s)'
 	return 'Universe = ' + str(U)
+
+set_universe_state(U)
 
 ## Prints a program
 #  @param solver The solver in which the program is.
@@ -44,12 +50,12 @@ def show_prog(solver, prog):
 #  @param title The title of the theorem.
 #  @param reset Boolean that indicates if the solver will be reset after the proof, true is reset.
 #  @return The result (sat, unsat or unknown) of the proof.
-def proof(solver, title=None, reset=True):
+def proof(solver, title=None, reset=True, show_solver=False):
 	if title != None:
 		title = title + '\n' + universe_state()
 	else:
 		title = universe_state()
-	result = super_proof(solver, title, False)
+	result = super_proof(solver, title, False, show_solver)
 	if result == sat:
 		from .program import SET, PROG
 		is_set = lambda elt: elt.range() == SET
@@ -70,7 +76,7 @@ def proof(solver, title=None, reset=True):
 #  @param title The title of the theorem.
 #  @param reset Boolean that indicates if the solver will be reset after the proof, true is reset.
 #  @return The result (sat, unsat or unknown) of the proof.
-def conclude(solver, conclusion, title=None, reset=True):
+def conclude(solver, conclusion, title=None, reset=True, show_solver=False):
 	solver.add(Not(conclusion))
 	# import pdb; pdb.set_trace()
-	proof(solver, title, reset)
+	proof(solver, title, reset, show_solver)

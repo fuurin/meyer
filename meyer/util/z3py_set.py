@@ -56,7 +56,7 @@ class Set():
 		return includes(self, other)
 
 	def __ne__(self, other):
-		return Not(self.__eq__(self, other))
+		return Not(self.__eq__(other))
 
 	# @param x An element that is included in this set.
 	# @return The constraint that x is included in this set.

@@ -133,7 +133,7 @@ class Program():
 		return equivalent(self, p)
 
 	def __ne__(self, p):
-		return Not(self.__eq__(self, p))
+		return Not(self.__eq__(p))
 
 ## Use prog/progs _constraint to Prog constants.
 #  @param prog The prog that needs constraints.
