@@ -1,20 +1,26 @@
-from .util.z3py_set import Inter, Union, Cpl, included, Empty, Universe
-from .program import U
+from .util.z3py_set import Empty, Universe
+from .util.z3py_rel import Empty as RelEmpty, Universe as RelUniverse
 
 def And(s1, s2):
-	return Inter(s1, s2)
+	return s1 & s2
 
 def Or(s1, s2):
-	return Union(s1, s2)
+	return s1 | s2
 
 def Not(s):
-	return Cpl(s)
+	return -s
 
 def Implies(s1, s2):
-	return included(s1, s2)
+	return s1 <= s2
 
 def true():
-	return Universe(U)
+	return Universe()
 
 def false():
-	return Empty(U)
+	return Empty()
+
+def havoc():
+	return RelUniverse()
+
+def fail():
+	return RelEmpty()

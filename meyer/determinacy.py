@@ -1,7 +1,8 @@
 # encoding: utf-8
 from z3 import ForAll, Exists, Implies, And, Not
-from .program import U
+from .meyer import U
 from .util.z3py_util import consts
+
 ## @file determinacy.py
 #  This module is used to create deterministic assumptions on programs.
 #

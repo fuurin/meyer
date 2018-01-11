@@ -140,7 +140,8 @@ def show_set_element(solver, record):
 #  @param title The title of the theorem.
 #  @param reset Indicates if the solver will be reset after the proof or not, True by default.
 #  @return The result of the theorem (sat, unsat or unknown)
-def proof(solver, title=None, reset=True):
+def proof(solver, title=None, reset=True, show_solver=False):
+	if show_solver: print(solver)
 	if title != None:
 		print(yellow(title))
 	result = solver.check()
