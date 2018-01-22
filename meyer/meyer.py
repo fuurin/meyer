@@ -9,8 +9,8 @@ from .util.z3py_util import proof as super_proof, evaluate, show_record_element
 #
 #
 
-# U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
-U, UALL = EnumSort('U', ['U'+str(n) for n in range(1,9)])
+U, (A, B, C) = EnumSort('U', ('A', 'B', 'C')) # U has 3 elements
+# U, UALL = EnumSort('U', ['U'+str(n) for n in range(1,9)])
 # U = IntSort()
 # U = RealSort()
 
