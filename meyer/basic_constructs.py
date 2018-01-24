@@ -62,6 +62,26 @@ class Restriction(Program):
 class Rest(Restriction):
 	"""This is short name for Restriction"""
 
+
+class MeyerRestriction(Program):
+	"""Restriction on Meyer's paper, performs like a set c on program p."""
+	def __init__(self, c, p):
+		self.c = c
+		self.p = p
+
+	def _set(self, x):
+		return self.p.set(x)
+
+	def _pre(self, x):
+		return self.p.pre(x) # This causes counter example in P6
+		# return And(self.p.pre(x)) # interesting result; this causes unknown
+		# return And(self.p.pre(x), self.c(x))
+
+	def _post(self, x, y):
+		return And(self.p.post(x, y), self.c(x))
+
+class MRest(MeyerRestriction):
+	"""This is short name for MeyerRestriction"""
 	
 
 class Corestriction(Program):

@@ -2,16 +2,22 @@
 import inspect
 from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_set import Set
-from .z3py_util import const, unveil
+from .z3py_util import const, unveil, model
 
 SORT_DOM = None
 SORT_RAN = None
+REL_SORT = None
 
 def set_sort(sort_dom, sort_ran):
 	global SORT_DOM
 	SORT_DOM = sort_dom
 	global SORT_RAN
 	SORT_RAN = sort_ran
+	global REL_SORT
+	REL_SORT = ArraySort(
+		sort_dom, 
+		ArraySort(sort_ran, BoolSort())
+	)
 
 def get_sort_dom():
 	global SORT_DOM
@@ -103,15 +109,7 @@ class Rel(Relation):
 #  @param name The sort of the created set.
 #  @return The set instance created.
 def rel(name):
-	return Rel(
-		const(
-			name, 
-			ArraySort(
-				get_sort_dom(), 
-				ArraySort(get_sort_ran(), BoolSort())
-			)
-		)
-	)
+	return Rel(const(name, REL_SORT))
 
 ## Creates multiple new sets.
 #  @param names The names of the created sets, separated by space character.
@@ -147,14 +145,25 @@ def included(r1, r2):
 	y = const('y', get_sort_ran())
 	return ForAll([x, y], Implies(r1(x, y), r2(x, y)))
 
-## Prints a set
+## Prints a relation
 #  @param solver The solver in which the set is.
 #  @param set The set that need to be printed.
-def show_set(solver, rel):
+def show_rel(solver, rel):
 	if isinstance(rel, Relation):
 		rel = rel.z3()
-	if not str(rel)[1] == '!':
-		unveil(solver, rel)
+	if not str(rel)[1] == '!': 
+		print("content of", rel)
+		content = model(solver, rel).as_list()
+		unveil(solver, content)
+		print()
+
+def show_rels(solver, *rels):
+	for r in rels: show_rel(solver, r)
+
+def show_rel_models(solver):
+	is_rel = lambda elt: elt.range() == REL_SORT
+	rels = list(filter(is_rel, solver.model()))
+	show_rels(solver, *rels)
 
 class Union(Rel):
 	"""Union for relation instances."""

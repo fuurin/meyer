@@ -55,7 +55,7 @@ def proof(solver, title=None, reset=True, show_solver=False):
 		title = title + '\n' + universe_state()
 	else:
 		title = universe_state()
-	result = super_proof(solver, title, False, show_solver)
+	result = super_proof(solver, title, False, show_solver, False)
 	if result == sat:
 		from .program import SET, PROG
 		is_set = lambda elt: elt.range() == SET

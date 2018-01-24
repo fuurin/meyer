@@ -140,7 +140,7 @@ def show_set_element(solver, record):
 #  @param title The title of the theorem.
 #  @param reset Indicates if the solver will be reset after the proof or not, True by default.
 #  @return The result of the theorem (sat, unsat or unknown)
-def proof(solver, title=None, reset=True, show_solver=False):
+def proof(solver, title=None, reset=True, show_solver=False, show_model=True):
 	if show_solver: print(solver)
 	if title != None:
 		print(yellow(title))
@@ -149,9 +149,11 @@ def proof(solver, title=None, reset=True, show_solver=False):
 		print(cyan("Holds: " + str(result)), "\n")
 	else:
 		print(red("Unholds: " + str(result)))
-		if result == sat: 
-			# print(solver.model(), "\n")
-			pass
+		if result == sat and show_model:
+			from .z3py_set import show_set_models
+			from .z3py_rel import show_rel_models
+			show_set_models(solver)
+			show_rel_models(solver)
 		if result == unknown: 
 			print(red(solver.reason_unknown()), "\n")
 	if reset: solver.reset()

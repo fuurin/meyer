@@ -3,7 +3,7 @@ from z3 import Datatype, BoolSort, IntSort, ArraySort, And, Not
 from .meyer import U
 from .util.z3py_set import Set
 from .util.z3py_rel import Rel
-from .util.z3py_util import const
+from .util.z3py_util import const, consts
 
 
 ## @file program.py
@@ -140,6 +140,14 @@ class Program():
 #  @return The constraints linked to a program.
 def prog_constraint(p):
 	return And(p.pre() <= p.set(), p.post() <= p.set() ^ p.set())
+	"""
+	from z3 import ForAll, And, Implies
+	x, y, z = consts('x y z', U)
+	return ForAll([x, y], And(
+		Implies(p.pre(x), p.set(x)),
+		Implies(p.post(z, y), And(p.set(z), p.set(y))),
+	))
+	"""
 
 ## Maps the constraints of progs to the progs.
 #  @param progs A list of progs that is used.

@@ -4,10 +4,13 @@ from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_util import const, show_set_element
 
 SORT = None
+SET_SORT = None
 
 def set_sort(sort):
 	global SORT
 	SORT = sort
+	global SET_SORT
+	SET_SORT = ArraySort(sort, BoolSort())
 
 def get_sort():
 	global SORT
@@ -72,7 +75,7 @@ class Set():
 #  @param name The sort of the created set.
 #  @return The set instance created.
 def set(name):
-	return Set(const(name, ArraySort(get_sort(), BoolSort())))
+	return Set(const(name, SET_SORT))
 
 ## Creates multiple new sets.
 #  @param names The names of the created sets, separated by space character.
@@ -113,6 +116,14 @@ def show_set(solver, set):
 		set = set.z3()
 	if not str(set)[1] == '!':
 		show_set_element(solver, set)
+
+def show_sets(solver, *sets):
+	for s in sets: show_set(solver, s)
+
+def show_set_models(solver):
+	is_set = lambda elt: elt.range() == SET_SORT
+	sets = list(filter(is_set, solver.model()))
+	show_sets(solver, *sets)
 
 class Union(Set):
 	"""Union for set instances."""
