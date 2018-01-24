@@ -14,7 +14,8 @@ class Choice(Program):
 		return Or([p.pre(x) for p in self.p])
 
 	def _post(self, x, y):
-		return Or([p.post(x, y) for p in self.p])
+		# return Or([p.post(x, y) for p in self.p])
+		return Or([(p.post()/p.pre())(x, y) for p in self.p])
 
 
 class Choi(Choice):
@@ -33,13 +34,32 @@ class Composition(Program):
 
 	def _pre(self, x):
 		return (self.p1.pre() & self.p1.post() << self.p2.pre())(x) 
-
+	
 	def _post(self, x, y):
 		return (self.p1.post() // self.p2.pre() ^ self.p2.post())(x, y)
-
+	
 class Comp(Composition):
 	"""This is short name for Composition"""
 
+
+
+class SoftComposition(Program):
+	"""Composition, performs like p1 then like p2."""
+	def __init__(self, p1, p2):
+		self.p1 = p1
+		self.p2 = p2
+
+	def _set(self, x):
+		return Or(self.p1.set(x), self.p2.set(x))
+
+	def _pre(self, x):
+		return (self.p1.post() << self.p2.pre())(x)
+
+	def _post(self, x, y):
+		return (self.p1.post() ^ self.p2.post())(x, y)
+
+class SComp(SoftComposition):
+	"""This is short name for Composition"""
 
 
 class Restriction(Program):

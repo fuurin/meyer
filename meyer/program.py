@@ -3,7 +3,7 @@ from z3 import Datatype, BoolSort, IntSort, ArraySort, And, Not
 from .meyer import U
 from .util.z3py_set import Set
 from .util.z3py_rel import Rel
-from .util.z3py_util import const, consts
+from .util.z3py_util import const, consts, show_record_element
 
 
 ## @file program.py
@@ -109,7 +109,8 @@ class Program():
 		return Choice(self, p)
 
 	def __xor__(self, p):
-		from .basic_constructs import Composition
+		from .basic_constructs import Composition, SoftComposition
+		# return SoftComposition(self, p)
 		return Composition(self, p)
 
 	def __lt__(self, p):
@@ -171,3 +172,24 @@ def prog(solver, name):
 def progs(solver, names):
 	ps = [prog(solver, name) for name in names.split(' ')]
 	return ps[0] if len(ps) == 1 else ps
+
+## Prints a program
+#  @param solver The solver in which the program is.
+#  @param prog The program that needs to be printed.
+def show_prog(solver, prog):
+	if isinstance(prog, Program):
+		show_record_element(solver, prog.z3(), set_)
+		show_record_element(solver, prog.z3(), pre_)
+		show_record_element(solver, prog.z3(), post_)
+	else:
+		show_record_element(solver, prog, set_)
+		show_record_element(solver, prog, pre_)
+		show_record_element(solver, prog, post_)
+
+def show_progs(solver, *progs):
+	for p in progs: show_prog(solver, p)
+
+def show_prog_models(solver):
+	is_prog = lambda elt: elt.range() == PROG
+	progs = list(filter(is_prog, solver.model()))
+	show_progs(solver, *progs)

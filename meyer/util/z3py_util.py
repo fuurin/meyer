@@ -1,5 +1,6 @@
 # encoding: utf-8
 from .color import red, cyan, yellow
+from z3 import IntSort, EnumSort, Not
 from z3 import Const, Consts, Function, is_ast, is_bool, is_as_array
 from z3 import simplify, get_as_array_func
 from z3 import sat, unsat, unknown
@@ -7,6 +8,25 @@ from z3 import sat, unsat, unknown
 #  This module is used to construct special variables that are needed in theorem proving.
 #
 #  This module attributes an ID to each element used in the proof of a theorem. It also allows the construction of consts, functions and permits to print them.
+
+# U = IntSort()
+U, (A, B, C) = EnumSort('U', ('A', 'B', 'C'))
+# U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,3)])
+
+## Returns a string which contains informations about the universe used.
+#  @return The string which contains the universe.
+def universe_state():
+	if hasattr(U, 'num_constructors'):
+		num = str(U.num_constructors())
+		return 'Universe = U, has ' + num + ' element(s)'
+	return 'Universe = ' + str(U)
+
+## Sets universe state u to set module and bin-relation module.
+def set_universe_state(u):
+	global U
+	set_set_sort(u)
+	set_rel_sort(u, u)
+	U = u
 
 _ID = 0
 
@@ -48,6 +68,18 @@ def const(name, sort):
 #  @return New const elements.
 def consts(names, sort):
 	return Consts(id_names(names), sort)
+
+def element(name):
+	return const(name, U)
+
+def elm(name):
+	return element(name)
+
+def elements(names):
+	return consts(names, U)
+
+def elms(names):
+	return elements(names)
 
 ## Creates a function element.
 #  @param name Name of the function element.
@@ -124,17 +156,6 @@ def show_record_element(solver, record, element):
 	unveil(solver, elm_list)
 	print()
 
-## Prints the name of a set and its content.
-#  @param solver The solver currently used.
-#  @param record The name of the record.
-def show_set_element(solver, record):
-	print("content of", record)
-	if len(solver.model()[record].as_list()) > 1:
-		print(" =", solver.model()[record])
-	else:
-		print(" =", evaluate(solver, solver.model()[record].as_list()[0]))
-	print()
-
 ## Checks if a solver instance is sat, unsat or unknown, returns the result.
 #  @param solver The solver that is used to make the proof.
 #  @param title The title of the theorem.
@@ -142,8 +163,9 @@ def show_set_element(solver, record):
 #  @return The result of the theorem (sat, unsat or unknown)
 def proof(solver, title=None, reset=True, show_solver=False, show_model=True):
 	if show_solver: print(solver)
-	if title != None:
-		print(yellow(title))
+	if title != None: print(yellow(title))
+	print(yellow(universe_state()))
+
 	result = solver.check()
 	if result == unsat:
 		print(cyan("Holds: " + str(result)), "\n")
@@ -156,5 +178,11 @@ def proof(solver, title=None, reset=True, show_solver=False, show_model=True):
 			show_rel_models(solver)
 		if result == unknown: 
 			print(red(solver.reason_unknown()), "\n")
+	
 	if reset: solver.reset()
+	
 	return result
+
+def conclude(solver, conclusion, title=None, reset=True, show_solver=False):
+	solver.add(Not(conclusion))
+	proof(solver, title=title, reset=reset, show_solver=show_solver, show_model=True)

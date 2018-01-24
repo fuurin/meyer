@@ -1,10 +1,10 @@
 # encoding: utf-8
 import inspect
-from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
-from .z3py_util import const, show_set_element
+from z3 import ArraySort, BoolSort, EnumSort, ForAll, Exists, And, Or, Not, Implies
+from .z3py_util import U, const, evaluate
 
-SORT = None
-SET_SORT = None
+SORT = U
+SET_SORT = ArraySort(U, BoolSort())
 
 def set_sort(sort):
 	global SORT
@@ -115,7 +115,12 @@ def show_set(solver, set):
 	if isinstance(set, Set):
 		set = set.z3()
 	if not str(set)[1] == '!':
-		show_set_element(solver, set)
+		print("content of", set)
+		if len(solver.model()[set].as_list()) > 1:
+			print(" =", solver.model()[set])
+		else:
+			print(" =", evaluate(solver, solver.model()[set].as_list()[0]))
+		print()
 
 def show_sets(solver, *sets):
 	for s in sets: show_set(solver, s)

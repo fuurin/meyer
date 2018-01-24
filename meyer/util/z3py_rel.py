@@ -1,12 +1,12 @@
 # encoding: utf-8
 import inspect
-from z3 import ArraySort, BoolSort, ForAll, Exists, And, Or, Not, Implies
+from z3 import ArraySort, BoolSort, EnumSort, ForAll, Exists, And, Or, Not, Implies
 from .z3py_set import Set
-from .z3py_util import const, unveil, model
+from .z3py_util import U, const, unveil, model
 
-SORT_DOM = None
-SORT_RAN = None
-REL_SORT = None
+SORT_DOM = U
+SORT_RAN = U
+REL_SORT = ArraySort(U, ArraySort(U, BoolSort()))
 
 def set_sort(sort_dom, sort_ran):
 	global SORT_DOM
@@ -58,10 +58,10 @@ class Relation():
 		return Image(self, other)
 
 	def __and__(self, other):
-		return Union(self, other)
+		return Intersection(self, other)
 
 	def __or__(self, other):
-		return Intersection(self, other)
+		return Union(self, other)
 
 	def __xor__(self, other):
 		return Composition(self, other)
