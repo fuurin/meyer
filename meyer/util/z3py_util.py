@@ -11,7 +11,7 @@ from z3 import sat, unsat, unknown
 
 # U = IntSort()
 U, (A, B, C) = EnumSort('U', ('A', 'B', 'C'))
-# U, UALL = EnumSort('U', ['U'+str(n) for n in range(0,3)])
+# U, UALL = EnumSort('U', ['U'+str(n) for n in range(1,9)])
 
 ## Returns a string which contains informations about the universe used.
 #  @return The string which contains the universe.
