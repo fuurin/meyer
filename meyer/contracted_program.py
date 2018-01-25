@@ -1,8 +1,12 @@
 # encoding: utf-8
+from z3 import And
 from .program import progs
 
 def contracts(b, p):
 	return b < p
+
+def require(pre, b, post):
+	return And(b.pre() >= pre, b.post()/pre <= post, +b)
 
 class ContractedProgram():
 	"""This class represents a notation of contracted program."""
